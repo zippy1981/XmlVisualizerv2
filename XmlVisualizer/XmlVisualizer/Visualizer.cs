@@ -22,7 +22,7 @@ namespace XmlVisualizer
                 mainForm.SetDebugString(objectProvider.GetObject().ToString(), objectProvider.IsObjectReplaceable);
                 windowService.ShowDialog(mainForm);
                 
-                if (objectProvider.IsObjectReplaceable && mainForm.inject)
+                if (objectProvider.IsObjectReplaceable && mainForm.inject && mainForm.AnyChangesToInject())
                 {
                     try
                     {

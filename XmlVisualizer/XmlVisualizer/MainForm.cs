@@ -53,6 +53,11 @@ namespace XmlVisualizer
             InitializeEditorEvents();
         }
 
+        public bool AnyChangesToInject()
+        {
+            return editorControlsUserControl.AnyChangesToInject();
+        }
+
         public void SetDebugString(string objectString, bool replaceable)
         {
             debugString = objectString;

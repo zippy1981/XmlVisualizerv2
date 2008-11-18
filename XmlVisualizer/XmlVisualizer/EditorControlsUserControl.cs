@@ -44,6 +44,7 @@ namespace XmlVisualizer
         private static bool editorStatusTextBoxVisible;
         private static bool doNotHandleFormat;
         private static bool searchActivated;
+        private static bool anyChangesInEditor;
 
         public EditorControlsUserControl()
         {
@@ -147,8 +148,17 @@ namespace XmlVisualizer
 
             if (saved)
             {
+                if (editorUserControl.ChangesInEditor)
+                {
+                    if (activeState == "InputFile")
+                    {
+                        anyChangesInEditor = true;
+                    }
+
+                    editorUserControl.ChangesInEditor = false;
+                }
+
                 useSaveAsOnSave = false;
-                editorUserControl.ChangesInEditor = false;
             }
         }
 
@@ -162,6 +172,11 @@ namespace XmlVisualizer
             {
                 editorUserControl.ChangesInEditor = value;
             }
+        }
+
+        public bool AnyChangesToInject()
+        {
+            return anyChangesInEditor;
         }
 
         public bool ValidateDocument()
