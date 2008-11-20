@@ -1,0 +1,46 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVisualizer", "TestVisualizer\TestVisualizer.csproj", "{374CD2F0-2E93-4264-8CB6-E460D191C0E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizerMain", "VisualizerMain\VisualizerMain.csproj", "{49F5835F-B647-444D-BAAA-6AC39D8DDE59}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs08.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TestVisualizer\\TestVisualizer.csproj
+		SccProjectName1 = TestVisualizer
+		SccLocalPath1 = TestVisualizer
+		SccProjectUniqueName2 = Visualizer\\Visualizer.csproj
+		SccProjectName2 = Visualizer
+		SccLocalPath2 = Visualizer
+		SccProjectUniqueName3 = VisualizerMain\\VisualizerMain.csproj
+		SccProjectName3 = VisualizerMain
+		SccLocalPath3 = VisualizerMain
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{374CD2F0-2E93-4264-8CB6-E460D191C0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374CD2F0-2E93-4264-8CB6-E460D191C0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374CD2F0-2E93-4264-8CB6-E460D191C0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374CD2F0-2E93-4264-8CB6-E460D191C0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F5835F-B647-444D-BAAA-6AC39D8DDE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F5835F-B647-444D-BAAA-6AC39D8DDE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F5835F-B647-444D-BAAA-6AC39D8DDE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F5835F-B647-444D-BAAA-6AC39D8DDE59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
