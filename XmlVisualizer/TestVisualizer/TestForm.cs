@@ -3,6 +3,7 @@
 // http://www.codeplex.com/XmlVisualizer
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace TestVisualizer
@@ -12,6 +13,15 @@ namespace TestVisualizer
         public TestForm()
         {
             InitializeComponent();
+            CreateXsltTestDoc();
+        }
+
+        private static void CreateXsltTestDoc()
+        {
+            const string xsltDoc = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"><xsl:template match=\"/\"><html><body><h2>My CD Collection</h2><table border=\"1\"><tr bgcolor=\"#9acd32\"><th align=\"left\">Title</th><th align=\"left\">Artist</th></tr><xsl:for-each select=\"catalog/cd\"><tr><td><xsl:value-of select=\"title\" /></td><td><xsl:value-of select=\"artist\" /></td></tr></xsl:for-each></table></body></html></xsl:template></xsl:stylesheet>";
+            string tmpDir = Environment.GetEnvironmentVariable("temp");
+            string xsltFile = string.Format(@"{0}\test.xslt", tmpDir);
+            File.WriteAllText(xsltFile, xsltDoc);
         }
 
         private void TestForm_Load(object sender, EventArgs e)
