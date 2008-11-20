@@ -13,12 +13,9 @@ namespace XmlVisualizer
 
         public static void DeleteFile(string fileToDelete)
         {
-            try
+            if (File.Exists(fileToDelete))
             {
                 File.Delete(fileToDelete);
-            }
-            catch
-            {
             }
         }
 
@@ -105,23 +102,6 @@ namespace XmlVisualizer
             }
 
             return title;
-        }
-
-        public static string ReadFile(string file)
-        {
-            using (StreamReader sr = new StreamReader(file))
-            {
-                return sr.ReadToEnd();
-            }
-        }
-
-        public static void WriteFile(string fileContent, string outputFilename)
-        {
-            using (StreamWriter sw = new StreamWriter(outputFilename))
-            {
-                sw.Write(fileContent);
-                sw.Close();
-            }
         }
 
         public static void ShowMessage(string message)

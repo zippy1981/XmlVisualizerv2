@@ -3,6 +3,7 @@
 // http://www.codeplex.com/XmlVisualizer
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
@@ -201,7 +202,7 @@ namespace XmlVisualizer
                 }
                 else if (activeState == "XsltFile")
                 {
-                    Util.WriteFile(editorUserControl.GetText(), xsltFile);
+                    File.WriteAllText(xsltFile, editorUserControl.GetText());
 
                     XPathDocument xPathDoc = new XPathDocument(originalXmlFile);
                     XslCompiledTransform xslTrans = new XslCompiledTransform();

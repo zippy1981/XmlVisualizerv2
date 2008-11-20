@@ -190,7 +190,7 @@ namespace XmlVisualizer
                     }
                     else
                     {
-                        unformattedText = Util.ReadFile(appliedXsltFile);
+                        unformattedText = File.ReadAllText(appliedXsltFile);
                     }
 
                     break;
@@ -201,7 +201,7 @@ namespace XmlVisualizer
                     }
                     else
                     {
-                        unformattedText = Util.ReadFile(originalXmlFile);
+                        unformattedText = File.ReadAllText(originalXmlFile);
                     }
 
                     break;
@@ -304,7 +304,7 @@ namespace XmlVisualizer
             switch (ActiveState)
             {
                 case States.XsltFile:
-                    Util.WriteFile(editorControlsUserControl.GetText(), fileName);
+                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
 
                     if (applyAfterSave)
                     {
@@ -318,7 +318,7 @@ namespace XmlVisualizer
 
                     break;
                 case States.InputFile:
-                    Util.WriteFile(editorControlsUserControl.GetText(), fileName);
+                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
 
                     if (applyAfterSave)
                     {
@@ -628,8 +628,8 @@ namespace XmlVisualizer
             {
                 result = string.Format("<xml>\r\n{0}</xml>", result);
             }
-            
-            Util.WriteFile(result, inputFileComboBox.Text);
+
+            File.WriteAllText(inputFileComboBox.Text, result);
 
             if (previousXPathQuery != xPathComboBox.Text)
             {
@@ -752,7 +752,7 @@ namespace XmlVisualizer
             }
             else
             {
-                sr = Util.ReadFile(inputFileComboBox.Text);
+                sr = File.ReadAllText(inputFileComboBox.Text);
 
                 if (xPathTypeComboBox.SelectedItem.ToString() == "Value" && ActiveState == States.XPath)
                 {
@@ -782,7 +782,7 @@ namespace XmlVisualizer
             originalXmlFile = string.Format(@"{0}\{1}.xml", tmpDir, Guid.NewGuid());
             previousXmlFile = originalXmlFile;
             inputFileComboBox.Text = originalXmlFile;
-            Util.WriteFile(debugString, originalXmlFile);
+            File.WriteAllText(originalXmlFile, debugString);
             webBrowser.Url = new Uri(originalXmlFile);
         }
 
@@ -846,7 +846,7 @@ namespace XmlVisualizer
                     break;
             }
 
-            editorControlsUserControl.SetText(Util.ReadFile(fileToEdit));
+            editorControlsUserControl.SetText(File.ReadAllText(fileToEdit));
 
             EnableEditorControl();
 
