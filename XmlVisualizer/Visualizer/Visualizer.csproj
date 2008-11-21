@@ -60,6 +60,7 @@
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
+if not exist "..\..\runtime" mkdir "..\..\runtime"
 ..\..\..\ILMerge.exe /target:library /out:..\..\runtime\XmlVisualizer.dll Visualizer.dll ..\..\..\VisualizerMain\runtime\VisualizerMain.dll
 </PostBuildEvent>
   </PropertyGroup>
@@ -68,8 +69,5 @@
       <Project>{49F5835F-B647-444D-BAAA-6AC39D8DDE59}</Project>
       <Name>VisualizerMain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="runtime\" />
   </ItemGroup>
 </Project>

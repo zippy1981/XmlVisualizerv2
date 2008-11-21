@@ -141,9 +141,6 @@
     <Content Include="ICSharpCode.TextEditor.dll" />
     <None Include="Resources\page_find.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="runtime\" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -154,6 +151,7 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
+if not exist "..\..\runtime" mkdir "..\..\runtime"
 ..\..\..\ILMerge.exe /target:library /out:..\..\runtime\VisualizerMain.dll VisualizerMain.dll ..\..\ICSharpCode.TextEditor.dll
 </PostBuildEvent>
   </PropertyGroup>
