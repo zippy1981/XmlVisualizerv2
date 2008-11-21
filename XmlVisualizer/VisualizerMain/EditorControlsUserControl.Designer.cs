@@ -161,6 +161,7 @@ namespace XmlVisualizer
             this.searchTextBox.Text = "Search...";
             this.searchTextBox.MouseLeave += new System.EventHandler(this.searchTextBox_MouseLeave);
             this.searchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyDown);
+            this.searchTextBox.Leave += new System.EventHandler(this.searchTextBox_Leave);
             this.searchTextBox.Enter += new System.EventHandler(this.searchTextBox_Enter);
             this.searchTextBox.MouseEnter += new System.EventHandler(this.searchTextBox_MouseEnter);
             // 

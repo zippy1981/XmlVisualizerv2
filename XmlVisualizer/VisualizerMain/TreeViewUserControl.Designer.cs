@@ -89,6 +89,7 @@ namespace XmlVisualizer
             this.searchTreeTextBox.Text = "Search...";
             this.searchTreeTextBox.MouseLeave += new System.EventHandler(this.searchTreeTextBox_MouseLeave);
             this.searchTreeTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchTreeTextBox_KeyDown);
+            this.searchTreeTextBox.Leave += new System.EventHandler(this.searchTreeTextBox_Leave);
             this.searchTreeTextBox.Enter += new System.EventHandler(this.searchTreeTextBox_Enter);
             this.searchTreeTextBox.MouseEnter += new System.EventHandler(this.searchTreeTextBox_MouseEnter);
             // 

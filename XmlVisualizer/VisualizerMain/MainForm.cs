@@ -445,12 +445,7 @@ namespace XmlVisualizer
                 errorInXslt = false;
                 appliedXsltFile = xsltFileComboBox.Text;
 
-                if (treeviewEnabled)
-                {
-                    DisableTreeView();
-                }
-
-                ReloadWebBrowser();
+                Reload();
             }
             catch (System.Xml.Xsl.XsltException e)
             {
@@ -666,7 +661,7 @@ namespace XmlVisualizer
                     inputFilePictureBox.Visible = false;
                     xPathPictureBox.Visible = false;
                     editButton.Enabled = true;
-                    treeViewCheckBox.Enabled = false;
+                    treeViewCheckBox.Enabled = true;
                     break;
                 case States.XPath:
                     ActiveState = States.XPath;
@@ -1066,7 +1061,7 @@ namespace XmlVisualizer
         private void XsltFileComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             xsltFileComboBox.Text = xsltFileComboBox.SelectedItem.ToString();
-            ApplyXsltFile();
+            CheckForValidXsltInput();
         }
 
         private void openInBrowserButton_MouseEnter(object sender, EventArgs e)
@@ -1125,7 +1120,7 @@ namespace XmlVisualizer
                     toolStripStatusLabel.Text = "Show Xml in Tree view";
                     break;
                 case States.XPath:
-                    toolStripStatusLabel.Text = "Show Xml with XPath query in Tree view";
+                    toolStripStatusLabel.Text = "Show XPath result in Tree view";
                     break;
             }
         }
@@ -1249,11 +1244,6 @@ namespace XmlVisualizer
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (inputFileComboBox.Text == originalXmlFile)
-                {
-                    return;
-                }
-
                 CheckForValidXmlInput();
             }
         }
@@ -1283,22 +1273,21 @@ namespace XmlVisualizer
         private void inputFileComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             inputFileComboBox.Text = inputFileComboBox.SelectedItem.ToString();
-
             CheckForValidXmlInput();
         }
 
         private void applyXmlButton_Click(object sender, EventArgs e)
         {
-            if (inputFileComboBox.Text == originalXmlFile)
-            {
-                return;
-            }
-
             CheckForValidXmlInput();
         }
 
         private void CheckForValidXmlInput()
         {
+            if (inputFileComboBox.Text.Trim().ToLower() == originalXmlFile.ToLower())
+            {
+                return;
+            }
+            
             string fileToDelete = inputFileComboBox.Text;
 
             if (ActiveState != States.InputFile)
@@ -1412,26 +1401,20 @@ namespace XmlVisualizer
         {
             xsltFileComboBox.Text = openXsltFileDialog.FileName;
 
-            ApplyXsltFile();
-
             string dir = openXsltFileDialog.FileName.Substring(0, openXsltFileDialog.FileName.LastIndexOf("\\"));
             Util.SaveToRegistry("LastXsltDir", dir);
+
+            CheckForValidXsltInput();
         }
 
         private void OpenXmlFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!doNotDeleteFile)
-            {
-                DeleteFile(originalXmlFile);
-                doNotDeleteFile = true;
-            }
-
             inputFileComboBox.Text = openXmlFileDialog.FileName;
-
-            ApplyXmlFile();
 
             string dir = openXmlFileDialog.FileName.Substring(0, openXmlFileDialog.FileName.LastIndexOf("\\"));
             Util.SaveToRegistry("LastXmlDir", dir);
+
+            CheckForValidXmlInput();
         }
 
         private void newXmlFileButton_MouseEnter(object sender, EventArgs e)

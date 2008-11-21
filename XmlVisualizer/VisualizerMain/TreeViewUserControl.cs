@@ -289,9 +289,19 @@ namespace XmlVisualizer
         {
             if (!searchActivated)
             {
-                searchTreeTextBox.Text = "";
                 searchTreeTextBox.ForeColor = Color.Black;
+                searchTreeTextBox.Text = "";
                 searchActivated = true;
+            }
+        }
+
+        private void searchTreeTextBox_Leave(object sender, EventArgs e)
+        {
+            if (searchTreeTextBox.Text == "")
+            {
+                searchTreeTextBox.ForeColor = SystemColors.GradientInactiveCaption;
+                searchTreeTextBox.Text = "Search...";
+                searchActivated = false;
             }
         }
     }

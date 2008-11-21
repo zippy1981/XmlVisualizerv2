@@ -505,9 +505,19 @@ namespace XmlVisualizer
         {
             if (!searchActivated)
             {
-                searchTextBox.Text = "";
                 searchTextBox.ForeColor = System.Drawing.Color.Black;
+                searchTextBox.Text = "";
                 searchActivated = true;
+            }
+        }
+
+        private void searchTextBox_Leave(object sender, EventArgs e)
+        {
+            if (searchTextBox.Text == "")
+            {
+                searchTextBox.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
+                searchTextBox.Text = "Search...";
+                searchActivated = false;
             }
         }
     }
