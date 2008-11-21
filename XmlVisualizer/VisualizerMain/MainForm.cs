@@ -281,6 +281,7 @@ namespace XmlVisualizer
                 case States.XsltFile:
                     xsltFileComboBox.Text = fileName;
                     SaveEditorContent(fileName, applyAfterSave);
+                    appliedXsltFile = xsltFileComboBox.Text;
 
                     break;
                 case States.InputFile:
@@ -907,20 +908,15 @@ namespace XmlVisualizer
 
                 newFile = false;
             }
-            
+
             if (errorInXslt)
             {
                 if (StateBeforeXsltError == States.XsltFile)
                 {
-                    if (xsltFileComboBox.Text != appliedXsltFile)
-                    {
-                        xsltFileComboBox.Text = appliedXsltFile;
-                    }
-                    else
-                    {
-                        StateAfterClose = States.InputFile;
-                        inputFileComboBox.Text = originalXmlFile;
-                    }
+                    inputFileComboBox.Text = originalXmlFile;
+                    Reload();
+
+                    StateAfterClose = States.InputFile;
                 }
                 else
                 {
@@ -928,6 +924,10 @@ namespace XmlVisualizer
                 }
 
                 errorInXslt = false;
+            }
+            else
+            {
+                xsltFileComboBox.Text = appliedXsltFile;
             }
 
             SetActive(StateAfterClose);
@@ -941,8 +941,6 @@ namespace XmlVisualizer
                     inputFileComboBox.Text = originalXmlFile;
                     break;
             }
-
-            xsltFileComboBox.Text = appliedXsltFile;
 
             newXmlFileButton.Enabled = true;
             newXsltFileButton.Enabled = true;
