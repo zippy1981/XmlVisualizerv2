@@ -50,7 +50,6 @@ namespace XmlVisualizer
             SetActive(States.InputFile);
             InitializeTreeViewEvents();
             InitializeEditorEvents();
-            DeselectSelection();
         }
 
         public bool AnyChangesToInject()
