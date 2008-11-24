@@ -30,7 +30,6 @@ namespace XmlVisualizer
         private string previousFileFromXslt;
         private string appliedXsltFile;
         private string appliedXPathFile;
-        private string tmpDir;
         private string debugString;
         private static bool mainFormLoaded;
         private static bool errorInXslt;
@@ -439,7 +438,7 @@ namespace XmlVisualizer
 
             try
             {
-                string outputFile = string.Format(@"{0}\{1}.html", tmpDir, Guid.NewGuid());
+                string outputFile = string.Format(@"{0}{1}.html", Path.GetTempPath(), Guid.NewGuid());
                 CommitXslt(outputFile);
                 inputFileComboBox.Text = outputFile;
                 previousFileFromXslt = outputFile;
@@ -529,7 +528,7 @@ namespace XmlVisualizer
                     treeViewCheckBox.Enabled = true;
                 }
 
-                inputFileComboBox.Text = string.Format(@"{0}\{1}.{2}", tmpDir, Guid.NewGuid(), fileExtension);
+                inputFileComboBox.Text = string.Format(@"{0}{1}.{2}", Path.GetTempPath(), Guid.NewGuid(), fileExtension);
                 previousFileFromXPath = inputFileComboBox.Text;
                 appliedXPathFile = inputFileComboBox.Text;
                 CommitXPath();
@@ -774,8 +773,7 @@ namespace XmlVisualizer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            tmpDir = Environment.GetEnvironmentVariable("temp");
-            originalXmlFile = string.Format(@"{0}\{1}.xml", tmpDir, Guid.NewGuid());
+            originalXmlFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
             previousXmlFile = originalXmlFile;
             inputFileComboBox.Text = originalXmlFile;
             File.WriteAllText(originalXmlFile, debugString);

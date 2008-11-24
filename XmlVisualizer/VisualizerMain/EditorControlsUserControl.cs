@@ -189,9 +189,8 @@ namespace XmlVisualizer
 
             if (activeState == "XsltFile")
             {
-                string tmpDir = Environment.GetEnvironmentVariable("temp");
-                xsltFile = string.Format(@"{0}\{1}.xml", tmpDir, Guid.NewGuid());
-                outputFile = string.Format(@"{0}\{1}.html", tmpDir, Guid.NewGuid());
+                xsltFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
+                outputFile = string.Format(@"{0}{1}.html", Path.GetTempPath(), Guid.NewGuid());
             }
 
             try
