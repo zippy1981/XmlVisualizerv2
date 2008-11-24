@@ -50,6 +50,7 @@ namespace XmlVisualizer
             SetActive(States.InputFile);
             InitializeTreeViewEvents();
             InitializeEditorEvents();
+            DeselectSelection();
         }
 
         public bool AnyChangesToInject()
@@ -787,10 +788,15 @@ namespace XmlVisualizer
                 Util.SaveToRegistry("MainFormWidth", ActiveForm.Width.ToString());
                 Util.SaveToRegistry("MainFormHeight", ActiveForm.Height.ToString());
 
-                inputFileComboBox.Select(0, 0);
-                xPathComboBox.Select(0, 0);
-                xsltFileComboBox.Select(0, 0);
+                DeselectSelection();
             }
+        }
+
+        private void DeselectSelection()
+        {
+            inputFileComboBox.Select(0, 0);
+            xPathComboBox.Select(0, 0);
+            xsltFileComboBox.Select(0, 0);
         }
 
         private void MainForm_Move(object sender, EventArgs e)
