@@ -87,6 +87,12 @@
       <DependentUpon>TreeViewUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <Compile Include="ValidateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ValidateForm.Designer.cs">
+      <DependentUpon>ValidateForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TreeViewUserControl.resx">
       <DependentUpon>TreeViewUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ValidateForm.resx">
+      <DependentUpon>ValidateForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

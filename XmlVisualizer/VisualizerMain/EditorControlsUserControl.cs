@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Schema;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 
@@ -35,17 +36,19 @@ namespace XmlVisualizer
         public event CaretChangeEventHandler CaretChangeEvent;
 
         public bool useSaveAsOnSave;
-        public bool disableSaveAsButton;
 
         public string activeState;
         public string originalXmlFile;
-
+        public string appliedXsdFile;
+        
+        private string selectedValidationType;
         private static bool failBeforeFormat;
         private static bool failBeforeUnformat;
         private static bool editorStatusTextBoxVisible;
         private static bool doNotHandleFormat;
         private static bool searchActivated;
         private static bool anyChangesInEditor;
+        private static bool xsdError;
 
         public EditorControlsUserControl()
         {
@@ -117,6 +120,11 @@ namespace XmlVisualizer
                     saveAsFileDialog.Filter = "XSLT files|*.xslt|All files|*.*";
                     WorkingDir = "LastXsltDir";
                     break;
+                case "XsdFile":
+                    saveAsFileDialog.DefaultExt = "xsd";
+                    saveAsFileDialog.Filter = "XSD files|*.xsd|All files|*.*";
+                    WorkingDir = "LastXsdDir";
+                    break;
                 case "InputFile":
                     saveAsFileDialog.DefaultExt = "xml";
                     saveAsFileDialog.Filter = "Xml files|*.xml|All files|*.*";
@@ -180,43 +188,51 @@ namespace XmlVisualizer
             return anyChangesInEditor;
         }
 
-        public bool ValidateDocument()
+        public bool ValidateDocument(string validationType)
         {
             bool success = true;
             XmlDocument document = new XmlDocument();
-            string xsltFile = "";
-            string outputFile = "";
-
-            if (activeState == "XsltFile")
-            {
-                xsltFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
-                outputFile = string.Format(@"{0}{1}.html", Path.GetTempPath(), Guid.NewGuid());
-            }
 
             try
             {
-                if (activeState == "InputFile")
+                if (validationType == "Xml")
                 {
                     document.LoadXml(editorUserControl.GetText());
                 }
-                else if (activeState == "XsltFile")
+                else if (validationType == "XSL")
                 {
-                    File.WriteAllText(xsltFile, editorUserControl.GetText());
-
                     XPathDocument xPathDoc = new XPathDocument(originalXmlFile);
                     XslCompiledTransform xslTrans = new XslCompiledTransform();
-                    xslTrans.Load(xsltFile);
-                    XmlTextWriter writer = new XmlTextWriter(outputFile, System.Text.Encoding.Default);
+                    XmlReader inputFile = XmlReader.Create(new StringReader(editorUserControl.GetText()));
+                    xslTrans.Load(inputFile);
+                    TextWriter tw = new StringWriter();
+                    XmlTextWriter writer = new XmlTextWriter(tw);
                     xslTrans.Transform(xPathDoc, null, writer);
                     writer.Close();
                 }
-            }
-            catch (XmlException e)
-            {
-                success = false;
+                else if (validationType == "XSD")
+                {
+                    XmlReader xsdDoc = XmlReader.Create(appliedXsdFile);
 
-                SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e));
-                editorUserControl.GotoLine(e.LineNumber, e.LinePosition);
+                    XmlSchemaSet schemaSet = new XmlSchemaSet();
+                    schemaSet.Add(null, xsdDoc);
+
+                    XmlReaderSettings readerSettings = new XmlReaderSettings();
+                    readerSettings.ValidationType = ValidationType.Schema;
+                    readerSettings.Schemas = schemaSet;
+                    readerSettings.ValidationEventHandler += XsdValidationCallBack;
+
+                    XmlReader reader = XmlReader.Create(new StringReader(editorUserControl.GetText()), readerSettings);
+
+                    while (reader.Read())
+                    {
+                    }
+
+                    reader.Close();
+
+                    success = !xsdError;
+                    xsdError = false;
+                }
             }
             catch (XsltException e)
             {
@@ -225,16 +241,30 @@ namespace XmlVisualizer
                 SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e));
                 editorUserControl.GotoLine(e.LineNumber, e.LinePosition);
             }
-            finally
+            catch (XmlException e)
             {
-                if (activeState == "XsltFile")
+                success = false;
+
+                if (validationType == "XSL")
                 {
-                    Util.DeleteFile(xsltFile);
-                    Util.DeleteFile(outputFile);
+                    Util.ShowMessage(Util.GetDetailedErrorMessage(e));
+                }
+                else
+                {
+                    SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e));
+                    editorUserControl.GotoLine(e.LineNumber, e.LinePosition);
                 }
             }
 
             return success;
+        }
+
+        private void XsdValidationCallBack(object sender, ValidationEventArgs e)
+        {
+            xsdError = true;
+
+            SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e.Exception));
+            editorUserControl.GotoLine(e.Exception.LineNumber, e.Exception.LinePosition);
         }
 
         public void SetEditorStatusTextBox(string text)
@@ -276,7 +306,27 @@ namespace XmlVisualizer
 
         private void validateButton_MouseEnter(object sender, EventArgs e)
         {
-            StatusTextEvent("Validate document");
+            StatusTextEvent(string.Format("Validate {0} document", GetDocumentType()));
+        }
+
+        private string GetDocumentType()
+        {
+            string text = "";
+
+            switch (activeState)
+            {
+                case "InputFile":
+                    text = "Xml";
+                    break;
+                case "XsltFile":
+                    text = "XSL";
+                    break;
+                case "XsdFile":
+                    text = "XSD";
+                    break;
+            }
+
+            return text;
         }
 
         private void validateButton_MouseLeave(object sender, EventArgs e)
@@ -286,10 +336,26 @@ namespace XmlVisualizer
 
         private void validateButton_Click(object sender, EventArgs e)
         {
-            if (ValidateDocument())
+            bool shouldValidate;
+
+            using (ValidateForm vf = new ValidateForm())
             {
-                Util.ShowMessage("Document validated successfully");
-                CloseStatusBox();
+                vf.Text = Util.GetTitle();
+                vf.activeState = activeState;
+                vf.documentType = GetDocumentType();
+                vf.selectedValidationType = selectedValidationType;
+                vf.ShowDialog();
+                selectedValidationType = vf.selectedValidationType;
+                shouldValidate = vf.shouldValidate;
+            }
+
+            if (shouldValidate)
+            {
+                if (ValidateDocument(selectedValidationType))
+                {
+                    Util.ShowMessage(string.Format("{0} document validated successfully", GetDocumentType()));
+                    CloseStatusBox();
+                }
             }
         }
 
@@ -334,7 +400,7 @@ namespace XmlVisualizer
             {
                 if (!failBeforeUnformat)
                 {
-                    if (ValidateDocument())
+                    if (ValidateDocument("Xml"))
                     {
                         CloseStatusBox();
                         failBeforeFormat = false;
@@ -347,7 +413,7 @@ namespace XmlVisualizer
 
                         if (showInvalidFormatWarning)
                         {
-                            Util.ShowMessage("Cannot format document with errors.\nFix the errors and try again.");
+                            Util.ShowMessage("Cannot format Xml document with errors.\nFix the errors and try again.");
                         }
                     }
                 }
@@ -433,18 +499,11 @@ namespace XmlVisualizer
 
         public void EnableEditor()
         {
+            selectedValidationType = "Xml";
+
             if (formatXmlCheckBox.Checked)
             {
                 HandleFormatXml(false);
-            }
-
-            if (disableSaveAsButton)
-            {
-                saveAsEditButton.Enabled = false;
-            }
-            else
-            {
-                saveAsEditButton.Enabled = true;
             }
 
             editorUserControl.SetFocus();

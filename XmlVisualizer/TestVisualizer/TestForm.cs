@@ -14,6 +14,7 @@ namespace TestVisualizer
         {
             InitializeComponent();
             CreateXsltTestDoc();
+            CreateXsdTestDoc();
         }
 
         private static void CreateXsltTestDoc()
@@ -23,9 +24,17 @@ namespace TestVisualizer
             File.WriteAllText(xsltFile, xsltDoc);
         }
 
+        private static void CreateXsdTestDoc()
+        {
+            const string xsdDoc = "<xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"urn:bookstore-schema\" elementFormDefault=\"qualified\" targetNamespace=\"urn:bookstore-schema\"><xsd:element name=\"bookstore\" type=\"bookstoreType\" /><xsd:complexType name=\"bookstoreType\"><xsd:sequence maxOccurs=\"unbounded\"><xsd:element name=\"book\" type=\"bookType\" /></xsd:sequence></xsd:complexType><xsd:complexType name=\"bookType\"><xsd:sequence><xsd:element name=\"title\" type=\"xsd:string\" /><xsd:element name=\"author\" type=\"authorName\" /><xsd:element name=\"price\" type=\"xsd:decimal\" /></xsd:sequence><xsd:attribute name=\"genre\" type=\"xsd:string\" /></xsd:complexType><xsd:complexType name=\"authorName\"><xsd:sequence><xsd:element name=\"first-name\" type=\"xsd:string\" /><xsd:element name=\"last-name\" type=\"xsd:string\" /></xsd:sequence></xsd:complexType></xsd:schema>";
+            string xsdFile = string.Format(@"{0}test.xsd", Path.GetTempPath());
+            File.WriteAllText(xsdFile, xsdDoc);
+        }
+
         private void TestForm_Load(object sender, EventArgs e)
         {
-            string xmlDoc = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><catalog><cd country=\"USA\"><title>Empire Burlesque</title><artist>Bob Dylan</artist><price>10.90</price></cd><cd country=\"UK\"><title>Hide your heart</title><artist>Bonnie Tyler</artist><price>10.0</price></cd><cd country=\"USA\"><title>Greatest Hits</title><artist>Dolly Parton</artist><price>9.90</price></cd></catalog>";
+            string xmlDoc = "<?xml version=\"1.0\"?><bookstore xmlns=\"urn:bookstore-schema\"><book><title>test 123</title><author><first-name>Benjamin</first-name><last-name>Franklin</last-name></author></book><book genre=\"novel\"><title>The Confidence Man</title><author><first-name>Herman</first-name><last-name>Melville</last-name></author><price>11.99</price></book><book genre=\"philosophy\"><title>The Gorgias</title><author><first-name>Herman</first-name><last-name>Melville</last-name></author><price>9.99</price></book></bookstore>";
+            //string xmlDoc = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><catalog><cd country=\"USA\"><title>Empire Burlesque</title><artist>Bob Dylan</artist><price>10.90</price></cd><cd country=\"UK\"><title>Hide your heart</title><artist>Bonnie Tyler</artist><price>10.0</price></cd><cd country=\"USA\"><title>Greatest Hits</title><artist>Dolly Parton</artist><price>9.90</price></cd></catalog>";
             Microsoft.VisualStudio.DebuggerVisualizers.VisualizerDevelopmentHost host = new Microsoft.VisualStudio.DebuggerVisualizers.VisualizerDevelopmentHost(xmlDoc, typeof(XmlVisualizer.Visualizer));
             host.ShowVisualizer();
 

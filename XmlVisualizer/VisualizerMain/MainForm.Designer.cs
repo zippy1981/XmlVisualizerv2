@@ -65,6 +65,13 @@ namespace XmlVisualizer
             this.aboutButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.ReadOnlyLabel = new System.Windows.Forms.Label();
+            this.newXsdFileButton = new System.Windows.Forms.Button();
+            this.xsdFileComboBox = new System.Windows.Forms.ComboBox();
+            this.xsdFilePictureBox = new System.Windows.Forms.PictureBox();
+            this.selectXsdFileButton = new System.Windows.Forms.Button();
+            this.xsdFileLabel = new System.Windows.Forms.Label();
+            this.applyXsdButton = new System.Windows.Forms.Button();
+            this.openXsdFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.editorControlsUserControl = new XmlVisualizer.EditorControlsUserControl();
             this.treeViewUserControl = new XmlVisualizer.TreeViewUserControl();
             this.groupBox1.SuspendLayout();
@@ -72,6 +79,7 @@ namespace XmlVisualizer
             ((System.ComponentModel.ISupportInitialize)(this.xPathPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xsltFilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputFilePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xsdFilePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -79,10 +87,10 @@ namespace XmlVisualizer
             this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowser.Location = new System.Drawing.Point(18, 104);
+            this.webBrowser.Location = new System.Drawing.Point(18, 130);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(556, 274);
+            this.webBrowser.Size = new System.Drawing.Size(556, 248);
             this.webBrowser.TabIndex = 5;
             this.webBrowser.TabStop = false;
             this.webBrowser.Url = new System.Uri("", System.UriKind.Relative);
@@ -139,7 +147,7 @@ namespace XmlVisualizer
             // xPathLabel
             // 
             this.xPathLabel.AutoSize = true;
-            this.xPathLabel.Location = new System.Drawing.Point(9, 69);
+            this.xPathLabel.Location = new System.Drawing.Point(9, 95);
             this.xPathLabel.Name = "xPathLabel";
             this.xPathLabel.Size = new System.Drawing.Size(36, 13);
             this.xPathLabel.TabIndex = 8;
@@ -148,7 +156,7 @@ namespace XmlVisualizer
             // applyXpathButton
             // 
             this.applyXpathButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyXpathButton.Location = new System.Drawing.Point(505, 64);
+            this.applyXpathButton.Location = new System.Drawing.Point(505, 90);
             this.applyXpathButton.Name = "applyXpathButton";
             this.applyXpathButton.Size = new System.Drawing.Size(75, 23);
             this.applyXpathButton.TabIndex = 11;
@@ -167,7 +175,7 @@ namespace XmlVisualizer
             "InnerXml",
             "OuterXml",
             "Value"});
-            this.xPathTypeComboBox.Location = new System.Drawing.Point(352, 65);
+            this.xPathTypeComboBox.Location = new System.Drawing.Point(352, 91);
             this.xPathTypeComboBox.Name = "xPathTypeComboBox";
             this.xPathTypeComboBox.Size = new System.Drawing.Size(112, 21);
             this.xPathTypeComboBox.TabIndex = 10;
@@ -182,9 +190,9 @@ namespace XmlVisualizer
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.editorControlsUserControl);
             this.groupBox1.Controls.Add(this.treeViewUserControl);
-            this.groupBox1.Location = new System.Drawing.Point(12, 92);
+            this.groupBox1.Location = new System.Drawing.Point(12, 118);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(568, 292);
+            this.groupBox1.Size = new System.Drawing.Size(568, 266);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             // 
@@ -192,7 +200,7 @@ namespace XmlVisualizer
             // 
             this.showLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.showLabel.AutoSize = true;
-            this.showLabel.Location = new System.Drawing.Point(312, 69);
+            this.showLabel.Location = new System.Drawing.Point(312, 95);
             this.showLabel.Name = "showLabel";
             this.showLabel.Size = new System.Drawing.Size(34, 13);
             this.showLabel.TabIndex = 15;
@@ -218,7 +226,7 @@ namespace XmlVisualizer
             this.xPathComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.xPathComboBox.FormattingEnabled = true;
-            this.xPathComboBox.Location = new System.Drawing.Point(65, 65);
+            this.xPathComboBox.Location = new System.Drawing.Point(65, 91);
             this.xPathComboBox.Name = "xPathComboBox";
             this.xPathComboBox.Size = new System.Drawing.Size(241, 21);
             this.xPathComboBox.TabIndex = 9;
@@ -383,7 +391,7 @@ namespace XmlVisualizer
             this.xPathPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.xPathPictureBox.ErrorImage = null;
             this.xPathPictureBox.InitialImage = null;
-            this.xPathPictureBox.Location = new System.Drawing.Point(470, 65);
+            this.xPathPictureBox.Location = new System.Drawing.Point(470, 91);
             this.xPathPictureBox.Name = "xPathPictureBox";
             this.xPathPictureBox.Size = new System.Drawing.Size(29, 22);
             this.xPathPictureBox.TabIndex = 13;
@@ -473,6 +481,90 @@ namespace XmlVisualizer
             this.ReadOnlyLabel.Text = "Object is read only";
             this.ReadOnlyLabel.Visible = false;
             // 
+            // newXsdFileButton
+            // 
+            this.newXsdFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.newXsdFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.newXsdFileButton.Image = global::XmlVisualizer.Properties.Resources.page_add;
+            this.newXsdFileButton.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.newXsdFileButton.Location = new System.Drawing.Point(440, 64);
+            this.newXsdFileButton.Name = "newXsdFileButton";
+            this.newXsdFileButton.Size = new System.Drawing.Size(24, 23);
+            this.newXsdFileButton.TabIndex = 22;
+            this.newXsdFileButton.UseVisualStyleBackColor = true;
+            this.newXsdFileButton.MouseLeave += new System.EventHandler(this.newXsdFileButton_MouseLeave);
+            this.newXsdFileButton.Click += new System.EventHandler(this.newXsdFileButton_Click);
+            this.newXsdFileButton.MouseEnter += new System.EventHandler(this.newXsdFileButton_MouseEnter);
+            // 
+            // xsdFileComboBox
+            // 
+            this.xsdFileComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.xsdFileComboBox.FormattingEnabled = true;
+            this.xsdFileComboBox.Location = new System.Drawing.Point(65, 65);
+            this.xsdFileComboBox.Name = "xsdFileComboBox";
+            this.xsdFileComboBox.Size = new System.Drawing.Size(339, 21);
+            this.xsdFileComboBox.TabIndex = 20;
+            this.xsdFileComboBox.SelectionChangeCommitted += new System.EventHandler(this.xsdFileComboBox_SelectionChangeCommitted);
+            this.xsdFileComboBox.MouseEnter += new System.EventHandler(this.xsdFileComboBox_MouseEnter);
+            this.xsdFileComboBox.MouseLeave += new System.EventHandler(this.xsdFileComboBox_MouseLeave);
+            this.xsdFileComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.xsdFileComboBox_KeyDown);
+            // 
+            // xsdFilePictureBox
+            // 
+            this.xsdFilePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.xsdFilePictureBox.BackgroundImage = global::XmlVisualizer.Properties.Resources.accept;
+            this.xsdFilePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.xsdFilePictureBox.ErrorImage = null;
+            this.xsdFilePictureBox.InitialImage = null;
+            this.xsdFilePictureBox.Location = new System.Drawing.Point(470, 65);
+            this.xsdFilePictureBox.Name = "xsdFilePictureBox";
+            this.xsdFilePictureBox.Size = new System.Drawing.Size(29, 22);
+            this.xsdFilePictureBox.TabIndex = 25;
+            this.xsdFilePictureBox.TabStop = false;
+            this.xsdFilePictureBox.Visible = false;
+            // 
+            // selectXsdFileButton
+            // 
+            this.selectXsdFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectXsdFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.selectXsdFileButton.Image = global::XmlVisualizer.Properties.Resources.dir;
+            this.selectXsdFileButton.Location = new System.Drawing.Point(410, 64);
+            this.selectXsdFileButton.Name = "selectXsdFileButton";
+            this.selectXsdFileButton.Size = new System.Drawing.Size(24, 23);
+            this.selectXsdFileButton.TabIndex = 21;
+            this.selectXsdFileButton.UseVisualStyleBackColor = true;
+            this.selectXsdFileButton.MouseLeave += new System.EventHandler(this.selectXsdFileButton_MouseLeave);
+            this.selectXsdFileButton.Click += new System.EventHandler(this.selectXsdFileButton_Click);
+            this.selectXsdFileButton.MouseEnter += new System.EventHandler(this.selectXsdFileButton_MouseEnter);
+            // 
+            // xsdFileLabel
+            // 
+            this.xsdFileLabel.AutoSize = true;
+            this.xsdFileLabel.Location = new System.Drawing.Point(9, 68);
+            this.xsdFileLabel.Name = "xsdFileLabel";
+            this.xsdFileLabel.Size = new System.Drawing.Size(45, 13);
+            this.xsdFileLabel.TabIndex = 23;
+            this.xsdFileLabel.Text = "XSD file";
+            // 
+            // applyXsdButton
+            // 
+            this.applyXsdButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.applyXsdButton.Location = new System.Drawing.Point(505, 64);
+            this.applyXsdButton.Name = "applyXsdButton";
+            this.applyXsdButton.Size = new System.Drawing.Size(75, 23);
+            this.applyXsdButton.TabIndex = 24;
+            this.applyXsdButton.Text = "Apply";
+            this.applyXsdButton.UseVisualStyleBackColor = true;
+            this.applyXsdButton.MouseLeave += new System.EventHandler(this.applyXsdButton_MouseLeave);
+            this.applyXsdButton.Click += new System.EventHandler(this.applyXsdButton_Click);
+            this.applyXsdButton.MouseEnter += new System.EventHandler(this.applyXsdButton_MouseEnter);
+            // 
+            // openXsdFileDialog
+            // 
+            this.openXsdFileDialog.Filter = "XSD files|*.xsd|All files|*.*";
+            this.openXsdFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openXsdFileDialog_FileOk);
+            // 
             // editorControlsUserControl
             // 
             this.editorControlsUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -481,7 +573,7 @@ namespace XmlVisualizer
             this.editorControlsUserControl.ChangesInEditor = false;
             this.editorControlsUserControl.Location = new System.Drawing.Point(6, 12);
             this.editorControlsUserControl.Name = "editorControlsUserControl";
-            this.editorControlsUserControl.Size = new System.Drawing.Size(556, 274);
+            this.editorControlsUserControl.Size = new System.Drawing.Size(556, 248);
             this.editorControlsUserControl.TabIndex = 26;
             this.editorControlsUserControl.Visible = false;
             // 
@@ -492,7 +584,7 @@ namespace XmlVisualizer
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewUserControl.Location = new System.Drawing.Point(6, 12);
             this.treeViewUserControl.Name = "treeViewUserControl";
-            this.treeViewUserControl.Size = new System.Drawing.Size(557, 274);
+            this.treeViewUserControl.Size = new System.Drawing.Size(557, 248);
             this.treeViewUserControl.TabIndex = 25;
             this.treeViewUserControl.Visible = false;
             // 
@@ -501,6 +593,12 @@ namespace XmlVisualizer
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 453);
+            this.Controls.Add(this.newXsdFileButton);
+            this.Controls.Add(this.xsdFileComboBox);
+            this.Controls.Add(this.xsdFilePictureBox);
+            this.Controls.Add(this.selectXsdFileButton);
+            this.Controls.Add(this.xsdFileLabel);
+            this.Controls.Add(this.applyXsdButton);
             this.Controls.Add(this.ReadOnlyLabel);
             this.Controls.Add(this.newXmlFileButton);
             this.Controls.Add(this.selectXmlFileButton);
@@ -544,6 +642,7 @@ namespace XmlVisualizer
             ((System.ComponentModel.ISupportInitialize)(this.xPathPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xsltFilePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputFilePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xsdFilePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -585,6 +684,13 @@ namespace XmlVisualizer
         private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.Label ReadOnlyLabel;
+        private System.Windows.Forms.Button newXsdFileButton;
+        private System.Windows.Forms.ComboBox xsdFileComboBox;
+        private System.Windows.Forms.PictureBox xsdFilePictureBox;
+        private System.Windows.Forms.Button selectXsdFileButton;
+        private System.Windows.Forms.Label xsdFileLabel;
+        private System.Windows.Forms.Button applyXsdButton;
+        private System.Windows.Forms.OpenFileDialog openXsdFileDialog;
 
     }
 }

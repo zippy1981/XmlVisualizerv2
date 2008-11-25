@@ -17,6 +17,7 @@ namespace XmlVisualizer
         public bool inject;
         public string originalXmlFile;
 
+        private const int numberOfXsdFilesToSave = 10;
         private const int numberOfXPathQueriesToSave = 10;
         private const int numberOfXsltFilesToSave = 10;
         private const int numberOfXmlFilesToSave = 10;
@@ -26,17 +27,20 @@ namespace XmlVisualizer
         private string previousXPathQuery;
         private string previousXsltFile;
         private string previousXmlFile;
+        private string previousXsdFile;
         private string previousFileFromXPath;
         private string previousFileFromXslt;
+        private string appliedXsdFile;
         private string appliedXsltFile;
-        private string appliedXPathFile;
         private string debugString;
         private static bool mainFormLoaded;
         private static bool errorInXslt;
+        private static bool errorInXml;
         private static bool editorEnabled;
         private static bool treeviewEnabled;
         private static bool newFile;
         private static bool doNotDeleteFile;
+        private static bool mainFormPropertiesSet;
 
         public MainForm()
         {
@@ -44,6 +48,7 @@ namespace XmlVisualizer
             InitializeComponent();
             SetXPathDefaultType();
             FillXPathComboBox();
+            FillXsdFileComboBox();
             FillXsltFileComboBox();
             FillInputFileComboBox();
             SetMainFormProperties(this);
@@ -182,6 +187,17 @@ namespace XmlVisualizer
 
             switch (ActiveState)
             {
+                case States.XsdFile:
+                    if (newFile)
+                    {
+                        unformattedText = GetNewXsd();
+                    }
+                    else
+                    {
+                        unformattedText = File.ReadAllText(appliedXsdFile);
+                    }
+
+                    break;
                 case States.XsltFile:
                     if (newFile)
                     {
@@ -264,11 +280,12 @@ namespace XmlVisualizer
             {
                 case States.XsltFile:
                     SaveEditorContent(xsltFileComboBox.Text, applyAfterSave);
-
+                    break;
+                case States.XsdFile:
+                    SaveEditorContent(xsdFileComboBox.Text, applyAfterSave);
                     break;
                 case States.InputFile:
                     SaveEditorContent(originalXmlFile, applyAfterSave);
-
                     break;
             }
         }
@@ -281,7 +298,11 @@ namespace XmlVisualizer
                     xsltFileComboBox.Text = fileName;
                     SaveEditorContent(fileName, applyAfterSave);
                     appliedXsltFile = xsltFileComboBox.Text;
-
+                    break;
+                case States.XsdFile:
+                    xsdFileComboBox.Text = fileName;
+                    SaveEditorContent(fileName, applyAfterSave);
+                    appliedXsdFile = xsdFileComboBox.Text;
                     break;
                 case States.InputFile:
                     inputFileComboBox.Text = fileName;
@@ -294,7 +315,6 @@ namespace XmlVisualizer
                     }
 
                     SaveEditorContent(fileName, applyAfterSave);
-
                     break;
             }
         }
@@ -310,10 +330,22 @@ namespace XmlVisualizer
                     {
                         ApplyXsltFile();
 
-                        if (!errorInXslt)
+                        if (!errorInXslt && !errorInXml)
                         {
                             DisableEditorControl(true);
                         }
+
+                        errorInXml = false;
+                    }
+
+                    break;
+                case States.XsdFile:
+                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
+
+                    if (applyAfterSave)
+                    {
+                        ApplyXsdFile();
+                        DisableEditorControl(true);
                     }
 
                     break;
@@ -323,7 +355,7 @@ namespace XmlVisualizer
                     if (applyAfterSave)
                     {
                         DisableEditorControl(true);
-                        Reload();
+                        Reload(inputFileComboBox.Text);
                     }
 
                     break;
@@ -334,6 +366,7 @@ namespace XmlVisualizer
         {
             InputFile,
             XsltFile,
+            XsdFile,
             XPath
         };
 
@@ -366,12 +399,18 @@ namespace XmlVisualizer
 
             mainFormLoaded = true;
 
-            if (mainForm.Width + mainForm.Location.X >= SystemInformation.PrimaryMonitorSize.Width || mainForm.Height + mainForm.Location.Y >= SystemInformation.PrimaryMonitorSize.Height)
+            if (mainForm.Width + mainForm.Location.X > SystemInformation.PrimaryMonitorSize.Width || mainForm.Height + mainForm.Location.Y > SystemInformation.PrimaryMonitorSize.Height)
+            {
+                mainForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
+            }
+
+            if (mainForm.Location.X < 0 - SystemInformation.FrameBorderSize.Width || mainForm.Location.Y < 0 - SystemInformation.FrameBorderSize.Height)
             {
                 mainForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             }
 
             mainForm.Text = Util.GetTitle();
+            mainFormPropertiesSet = true;
         }
 
         private void SetXPathDefaultType()
@@ -424,9 +463,9 @@ namespace XmlVisualizer
             }
         }
 
-        private void ReloadWebBrowser()
+        private void ReloadWebBrowser(string url)
         {
-            Uri uri = new Uri(inputFileComboBox.Text);
+            Uri uri = new Uri(url);
             webBrowser.Url = uri;
         }
 
@@ -445,7 +484,7 @@ namespace XmlVisualizer
                 errorInXslt = false;
                 appliedXsltFile = xsltFileComboBox.Text;
 
-                Reload();
+                Reload(inputFileComboBox.Text);
             }
             catch (System.Xml.Xsl.XsltException e)
             {
@@ -455,10 +494,16 @@ namespace XmlVisualizer
                 editorControlsUserControl.SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e));
                 editorControlsUserControl.GotoLine(e.LineNumber, e.LinePosition);
             }
-            catch (Exception e)
+            catch (XmlException e)
             {
                 Util.ShowMessage(Util.GetDetailedErrorMessage(e));
-                inputFileComboBox.Text = previousFile;
+                inputFileComboBox.Text = originalXmlFile;
+                errorInXml = true;
+                errorInXslt = false;
+                SetActive(States.InputFile);
+                HandleEditor();
+                editorControlsUserControl.SetEditorStatusTextBox(Util.GetDetailedErrorMessage(e));
+                editorControlsUserControl.GotoLine(e.LineNumber, e.LinePosition);
             }
         }
 
@@ -530,10 +575,9 @@ namespace XmlVisualizer
 
                 inputFileComboBox.Text = string.Format(@"{0}{1}.{2}", Path.GetTempPath(), Guid.NewGuid(), fileExtension);
                 previousFileFromXPath = inputFileComboBox.Text;
-                appliedXPathFile = inputFileComboBox.Text;
                 CommitXPath();
 
-                Reload();
+                Reload(inputFileComboBox.Text);
             }
             catch (Exception e)
             {
@@ -542,18 +586,18 @@ namespace XmlVisualizer
             }
         }
 
-        private void Reload()
+        private void Reload(string url)
         {
             if (treeviewEnabled)
             {
-                if (!treeViewUserControl.ReloadTreeView(inputFileComboBox.Text))
+                if (!treeViewUserControl.ReloadTreeView(url))
                 {
-                    DisableTreeView();
+                    DisableTreeView(url);
                 }
             }
             else
             {
-                ReloadWebBrowser();
+                ReloadWebBrowser(url);
             }
         }
 
@@ -648,6 +692,7 @@ namespace XmlVisualizer
                     inputFileComboBox.Enabled = true;
                     applyXmlButton.Text = "Apply";
                     inputFilePictureBox.Visible = true;
+                    xsdFilePictureBox.Visible = false;
                     xsltFilePictureBox.Visible = false;
                     xPathPictureBox.Visible = false;
                     editButton.Enabled = true;
@@ -657,7 +702,19 @@ namespace XmlVisualizer
                     ActiveState = States.XsltFile;
                     inputFileComboBox.Enabled = false;
                     applyXmlButton.Text = "Revert Xml";
+                    inputFilePictureBox.Visible = false;
+                    xsdFilePictureBox.Visible = false;
                     xsltFilePictureBox.Visible = true;
+                    xPathPictureBox.Visible = false;
+                    editButton.Enabled = true;
+                    treeViewCheckBox.Enabled = true;
+                    break;
+                case States.XsdFile:
+                    ActiveState = States.XsdFile;
+                    inputFileComboBox.Enabled = true;
+                    applyXmlButton.Text = "Apply";
+                    xsdFilePictureBox.Visible = true;
+                    xsltFilePictureBox.Visible = false;
                     inputFilePictureBox.Visible = false;
                     xPathPictureBox.Visible = false;
                     editButton.Enabled = true;
@@ -667,9 +724,10 @@ namespace XmlVisualizer
                     ActiveState = States.XPath;
                     inputFileComboBox.Enabled = false;
                     applyXmlButton.Text = "Revert Xml";
-                    xPathPictureBox.Visible = true;
                     inputFilePictureBox.Visible = false;
+                    xsdFilePictureBox.Visible = false;
                     xsltFilePictureBox.Visible = false;
+                    xPathPictureBox.Visible = true;
                     editButton.Enabled = false;
 
                     if (xPathTypeComboBox.SelectedItem.ToString() == "Value")
@@ -702,6 +760,24 @@ namespace XmlVisualizer
             xsltFileComboBox.Text = Util.ReadFromRegistry("XsltFile1");
             previousXsltFile = xsltFileComboBox.Text;
             appliedXsltFile = xsltFileComboBox.Text;
+        }
+
+        private void FillXsdFileComboBox()
+        {
+            xsdFileComboBox.Items.Clear();
+
+            for (int i = 1; i <= numberOfXsdFilesToSave; i++)
+            {
+                string item = Util.ReadFromRegistry("XsdFile" + i);
+
+                if (item != "")
+                {
+                    xsdFileComboBox.Items.Add(item);
+                }
+            }
+
+            xsdFileComboBox.Text = Util.ReadFromRegistry("XsdFile1");
+            appliedXsdFile = xsdFileComboBox.Text;
         }
 
         private void FillInputFileComboBox()
@@ -747,7 +823,7 @@ namespace XmlVisualizer
             }
             else
             {
-                sr = File.ReadAllText(inputFileComboBox.Text);
+                sr = File.ReadAllText(GetActiveDocumentUrl());
 
                 if (xPathTypeComboBox.SelectedItem.ToString() == "Value" && ActiveState == States.XPath)
                 {
@@ -782,33 +858,40 @@ namespace XmlVisualizer
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (ActiveForm != null)
+            if (ActiveForm != null && mainFormPropertiesSet)
             {
-                Util.SaveToRegistry("MainFormWidth", ActiveForm.Width.ToString());
-                Util.SaveToRegistry("MainFormHeight", ActiveForm.Height.ToString());
+                Util.SaveToRegistry("MainFormWidth", (ActiveForm.Width).ToString());
+                Util.SaveToRegistry("MainFormHeight", (ActiveForm.Height).ToString());
+                SaveMainFormLocation();
 
                 inputFileComboBox.Select(0, 0);
                 xPathComboBox.Select(0, 0);
                 xsltFileComboBox.Select(0, 0);
+                xsdFileComboBox.Select(0, 0);
             }
         }
 
         private void MainForm_Move(object sender, EventArgs e)
         {
-            if (ActiveForm != null)
+            if (ActiveForm != null && mainFormPropertiesSet)
             {
-                if (ActiveForm.Location.X > 0 && ActiveForm.Location.Y > 0)
+                if (ActiveForm.Location.X >= 0 && ActiveForm.Location.Y >= 0)
                 {
-                    Util.SaveToRegistry("MainFormLocationX", ActiveForm.Location.X.ToString());
-                    Util.SaveToRegistry("MainFormLocationY", ActiveForm.Location.Y.ToString());
+                    SaveMainFormLocation();
                 }
             }
+        }
+
+        private static void SaveMainFormLocation()
+        {
+            Util.SaveToRegistry("MainFormLocationX", (ActiveForm.Location.X).ToString());
+            Util.SaveToRegistry("MainFormLocationY", (ActiveForm.Location.Y).ToString());
         }
 
         private void OpenInBrowserButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(Util.GetDefaultWebBrowser());
-            psi.Arguments = inputFileComboBox.Text;
+            psi.Arguments = GetActiveDocumentUrl();
             System.Diagnostics.Process.Start(psi);
         }
 
@@ -831,9 +914,11 @@ namespace XmlVisualizer
                     else
                     {
                         fileToEdit = appliedXsltFile;
-                        xsltFileComboBox.Text = appliedXsltFile;
                     }
                     
+                    break;
+                case States.XsdFile:
+                    fileToEdit = appliedXsdFile;
                     break;
                 case States.InputFile:
                     fileToEdit = originalXmlFile;
@@ -846,7 +931,7 @@ namespace XmlVisualizer
 
             if (errorInXslt)
             {
-                editorControlsUserControl.ValidateDocument();
+                editorControlsUserControl.ValidateDocument("XSL");
             }
         }
 
@@ -862,17 +947,21 @@ namespace XmlVisualizer
             }
 
             newXmlFileButton.Enabled = false;
+            newXsdFileButton.Enabled = false;
             inputFileComboBox.Enabled = false;
             newXsltFileButton.Enabled = false;
             xsltFileComboBox.Enabled = false;
+            xsdFileComboBox.Enabled = false;
             xPathComboBox.Enabled = false;
             xPathTypeComboBox.Enabled = false;
             applyXmlButton.Enabled = false;
             applyXpathButton.Enabled = false;
             applyXsltButton.Enabled = false;
+            applyXsdButton.Enabled = false;
             openInBrowserButton.Enabled = false;
             editButton.Enabled = false;
             selectXmlFileButton.Enabled = false;
+            selectXsdFileButton.Enabled = false;
             selectXsltFileButton.Enabled = false;
             treeViewCheckBox.Enabled = false;
 
@@ -886,6 +975,7 @@ namespace XmlVisualizer
             }
 
             editorControlsUserControl.originalXmlFile = originalXmlFile;
+            editorControlsUserControl.appliedXsdFile = appliedXsdFile;
             editorControlsUserControl.activeState = ActiveState.ToString();
             editorControlsUserControl.EnableEditor();
             editorControlsUserControl.ReadFormatXmlState();
@@ -912,7 +1002,7 @@ namespace XmlVisualizer
                 if (StateBeforeXsltError == States.XsltFile)
                 {
                     inputFileComboBox.Text = originalXmlFile;
-                    Reload();
+                    Reload(inputFileComboBox.Text);
 
                     StateAfterClose = States.InputFile;
                 }
@@ -923,34 +1013,43 @@ namespace XmlVisualizer
 
                 errorInXslt = false;
             }
-            else
-            {
-                xsltFileComboBox.Text = appliedXsltFile;
-            }
 
             SetActive(StateAfterClose);
 
+            xsltFileComboBox.Text = appliedXsltFile;
+            xsdFileComboBox.Text = appliedXsdFile;
+
             switch (StateAfterClose)
             {
+                case States.XsltFile:
+                    inputFileComboBox.Text = previousFileFromXslt;
+                    break;
                 case States.XPath:
-                    inputFileComboBox.Text = appliedXPathFile;
+                    inputFileComboBox.Text = previousFileFromXPath;
                     break;
                 case States.InputFile:
+                case States.XsdFile:
                     inputFileComboBox.Text = originalXmlFile;
                     break;
             }
 
             newXmlFileButton.Enabled = true;
+            selectXmlFileButton.Enabled = true;
             newXsltFileButton.Enabled = true;
+            selectXsltFileButton.Enabled = true;
             xsltFileComboBox.Enabled = true;
+            selectXsdFileButton.Enabled = true;
+            xsdFileComboBox.Enabled = true;
             xPathComboBox.Enabled = true;
             xPathTypeComboBox.Enabled = true;
             applyXmlButton.Enabled = true;
             applyXpathButton.Enabled = true;
             applyXsltButton.Enabled = true;
             openInBrowserButton.Enabled = true;
-            selectXmlFileButton.Enabled = true;
-            selectXsltFileButton.Enabled = true;
+            xsdFileComboBox.Enabled = true;
+            applyXsdButton.Enabled = true;
+            newXsdFileButton.Enabled = true;
+            selectXsdFileButton.Enabled = true;
 
             if (treeviewEnabled)
             {
@@ -1009,6 +1108,11 @@ namespace XmlVisualizer
             EnableEditorControl();
         }
 
+        private static string GetNewXsd()
+        {
+            return "<?xml version=\"1.0\"?>\r\n<xs:schema elementFormDefault=\"qualified\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\r\n\t\r\n</xs:schema>\r\n";
+        }
+
         private static string GetNewXslt()
         {
             return "<?xml version=\"1.0\"?>\r\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\r\n\t\r\n</xsl:stylesheet>\r\n";
@@ -1019,9 +1123,9 @@ namespace XmlVisualizer
             return "<?xml version=\"1.0\"?>\r\n<root>\r\n\t\r\n</root>\r\n";
         }
 
-        private void EnableTreeView()
+        private void EnableTreeView(string url)
         {
-            if (treeViewUserControl.ReloadTreeView(inputFileComboBox.Text))
+            if (treeViewUserControl.ReloadTreeView(url))
             {
                 webBrowser.Visible = false;
                 treeviewEnabled = true;
@@ -1029,28 +1133,45 @@ namespace XmlVisualizer
             }
             else
             {
-                DisableTreeView();
+                DisableTreeView(inputFileComboBox.Text);
             }
         }
 
-        private void DisableTreeView()
+        private void DisableTreeView(string url)
         {
-            ReloadWebBrowser();
+            ReloadWebBrowser(url);
             webBrowser.Visible = true;
             treeViewCheckBox.Checked = false;
             treeviewEnabled = false;
             treeViewUserControl.Visible = false;
         }
 
+        private string GetActiveDocumentUrl()
+        {
+            string url;
+
+            switch (ActiveState)
+            {
+                case States.XsdFile:
+                    url = xsdFileComboBox.Text;
+                    break;
+                default:
+                    url = inputFileComboBox.Text;
+                    break;
+            }
+
+            return url;
+        }
+
         private void TreeViewCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (treeViewCheckBox.Checked)
             {
-                EnableTreeView();
+                EnableTreeView(GetActiveDocumentUrl());
             }
             else
             {
-                DisableTreeView();
+                DisableTreeView(GetActiveDocumentUrl());
             }
         }
 
@@ -1258,7 +1379,7 @@ namespace XmlVisualizer
                 inputFileComboBox.Text = originalXmlFile;
             }
 
-            Reload();
+            Reload(inputFileComboBox.Text);
         }
 
         private static void DeleteFile(string file)
@@ -1279,11 +1400,6 @@ namespace XmlVisualizer
 
         private void CheckForValidXmlInput()
         {
-            if (inputFileComboBox.Text.Trim().ToLower() == originalXmlFile.ToLower())
-            {
-                return;
-            }
-            
             string fileToDelete = inputFileComboBox.Text;
 
             if (ActiveState != States.InputFile)
@@ -1305,17 +1421,20 @@ namespace XmlVisualizer
             }
             else
             {
-                if (ActiveState == States.InputFile)
+                if (inputFileComboBox.Text.Trim().ToLower() != originalXmlFile.ToLower())
                 {
-                    if (!doNotDeleteFile)
+                    if (ActiveState == States.InputFile)
                     {
-                        DeleteFile(originalXmlFile);
-                        doNotDeleteFile = true;
+                        if (!doNotDeleteFile)
+                        {
+                            DeleteFile(originalXmlFile);
+                            doNotDeleteFile = true;
+                        }
                     }
-                }
-                else
-                {
-                    DeleteFile(fileToDelete);
+                    else
+                    {
+                        DeleteFile(fileToDelete);
+                    }
                 }
 
                 ApplyXmlFile();
@@ -1431,6 +1550,131 @@ namespace XmlVisualizer
         private void selectXmlFileButton_MouseLeave(object sender, EventArgs e)
         {
             toolStripStatusLabel.Text = "";
+        }
+
+        private void applyXsdButton_Click(object sender, EventArgs e)
+        {
+            CheckForValidXsdInput();
+        }
+
+        private void newXsdFileButton_Click(object sender, EventArgs e)
+        {
+            editorControlsUserControl.SetText(GetNewXsd());
+            xsdFileComboBox.Text = "";
+            StateBeforeNewFile = ActiveState;
+            SetActive(States.XsdFile);
+            newFile = true;
+            EnableEditorControl();
+        }
+
+        private void selectXsdFileButton_Click(object sender, EventArgs e)
+        {
+            openXsdFileDialog.Title = Util.GetTitle();
+            openXsdFileDialog.InitialDirectory = Util.ReadFromRegistry("LastXsdDir");
+            openXsdFileDialog.ShowDialog();
+        }
+
+        private void xsdFileComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            xsdFileComboBox.Text = xsdFileComboBox.SelectedItem.ToString();
+            CheckForValidXsdInput();
+        }
+
+        private void xsdFileComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CheckForValidXsdInput();
+            }
+        }
+
+        private void xsdFileComboBox_MouseEnter(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "Active XSD document";
+        }
+
+        private void xsdFileComboBox_MouseLeave(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "";
+        }
+
+        private void selectXsdFileButton_MouseEnter(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "Open XSD document";
+        }
+
+        private void selectXsdFileButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "";
+        }
+
+        private void newXsdFileButton_MouseEnter(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "Create new XSD document";
+        }
+
+        private void newXsdFileButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "";
+        }
+
+        private void applyXsdButton_MouseEnter(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "Validate active input file against the active XSD document";
+        }
+
+        private void applyXsdButton_MouseLeave(object sender, EventArgs e)
+        {
+            toolStripStatusLabel.Text = "";
+        }
+
+        private void CheckForValidXsdInput()
+        {
+            xsdFileComboBox.Text = xsdFileComboBox.Text.Trim();
+
+            if (xsdFileComboBox.Text == "")
+            {
+                Util.ShowMessage("No XSD file specified.");
+                xsdFileComboBox.Text = appliedXsdFile;
+            }
+            else if (!File.Exists(xsdFileComboBox.Text))
+            {
+                Util.ShowMessage(string.Format("XSD file '{0}' not found.", xsdFileComboBox.Text));
+                xsdFileComboBox.Text = appliedXsdFile;
+            }
+            else
+            {
+                appliedXsdFile = xsdFileComboBox.Text;
+                inputFileComboBox.Text = originalXmlFile;
+                ApplyXsdFile();
+            }
+        }
+
+        private void ApplyXsdFile()
+        {
+            if (previousXsdFile != xsdFileComboBox.Text)
+            {
+                previousXsdFile = xsdFileComboBox.Text;
+                Util.SaveComboBoxItemToRegistry(xsdFileComboBox.Text, "XsdFile", numberOfXsdFilesToSave);
+                FillXsdFileComboBox();
+            }
+
+            if (ActiveState != States.XsdFile)
+            {
+                SetActive(States.XsdFile);
+            }
+
+            Reload(xsdFileComboBox.Text);
+        }
+
+        private void openXsdFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            xsdFileComboBox.Text = openXsdFileDialog.FileName;
+
+            string dir = openXsdFileDialog.FileName.Substring(0, openXsdFileDialog.FileName.LastIndexOf("\\"));
+            Util.SaveToRegistry("LastXsdDir", dir);
+
+            CheckForValidXsdInput();
         }
     }
 }
