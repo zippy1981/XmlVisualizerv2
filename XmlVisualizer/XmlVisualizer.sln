@@ -7,6 +7,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{49F5835F-B647-444D-BAAA-6AC39D8DDE59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStandAloneVisualizer", "TestStandAloneVisualizer\TestStandAloneVisualizer.csproj", "{62651717-0169-42B6-8642-D41A210653B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{49F5835F-B647-444D-BAAA-6AC39D8DDE59} = {49F5835F-B647-444D-BAAA-6AC39D8DDE59}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
