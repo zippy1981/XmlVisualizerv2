@@ -41,6 +41,7 @@ namespace XmlVisualizer
         private static bool newFile;
         private static bool doNotDeleteFile;
         private static bool mainFormPropertiesSet;
+        private static bool standAlone;
 
         public MainForm()
         {
@@ -57,6 +58,11 @@ namespace XmlVisualizer
             InitializeEditorEvents();
         }
 
+        public void SetStandAlone(bool value)
+        {
+            standAlone = value;
+        }
+
         public bool AnyChangesToInputXml()
         {
             return editorControlsUserControl.AnyChangesToInject();
@@ -70,15 +76,23 @@ namespace XmlVisualizer
 
         private void HandleInjectAction(bool replaceable)
         {
-            if (replaceable)
+            if (standAlone)
             {
-                injectCheckBox.Visible = true;
+                injectCheckBox.Visible = false;
                 ReadOnlyLabel.Visible = false;
             }
             else
             {
-                injectCheckBox.Visible = false;
-                ReadOnlyLabel.Visible = true;
+                if (replaceable)
+                {
+                    injectCheckBox.Visible = true;
+                    ReadOnlyLabel.Visible = false;
+                }
+                else
+                {
+                    injectCheckBox.Visible = false;
+                    ReadOnlyLabel.Visible = true;
+                }
             }
         }
 

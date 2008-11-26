@@ -3,6 +3,7 @@
     public class Visualizer : System.IDisposable
     {
         private readonly MainForm mainForm;
+        private bool inputSet;
 
         public Visualizer()
         {
@@ -21,16 +22,35 @@
 
         public void SetInputXml(string xml)
         {
+            CheckXml(xml);
             mainForm.SetInputXml(xml, false);
         }
 
         public void SetInputXml(string xml, bool replaceable)
         {
+            CheckXml(xml);
             mainForm.SetInputXml(xml, replaceable);
+        }
+
+        private void CheckXml(string xml)
+        {
+            inputSet = true;
+
+            if (xml == null)
+            {
+                mainForm.SetStandAlone(true);
+            }
         }
 
         public void ShowDialog()
         {
+            if (!inputSet)
+            {
+                inputSet = true;
+                mainForm.SetStandAlone(true);
+                mainForm.SetInputXml("", false);
+            }
+
             mainForm.ShowDialog();
         }
 

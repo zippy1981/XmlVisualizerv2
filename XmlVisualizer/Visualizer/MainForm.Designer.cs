@@ -43,6 +43,8 @@ namespace XmlVisualizer
             this.applyXpathButton = new System.Windows.Forms.Button();
             this.xPathTypeComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.editorControlsUserControl = new XmlVisualizer.EditorControlsUserControl();
+            this.treeViewUserControl = new XmlVisualizer.TreeViewUserControl();
             this.showLabel = new System.Windows.Forms.Label();
             this.injectCheckBox = new System.Windows.Forms.CheckBox();
             this.xPathComboBox = new System.Windows.Forms.ComboBox();
@@ -72,8 +74,6 @@ namespace XmlVisualizer
             this.xsdFileLabel = new System.Windows.Forms.Label();
             this.applyXsdButton = new System.Windows.Forms.Button();
             this.openXsdFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.editorControlsUserControl = new XmlVisualizer.EditorControlsUserControl();
-            this.treeViewUserControl = new XmlVisualizer.TreeViewUserControl();
             this.groupBox1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xPathPictureBox)).BeginInit();
@@ -195,6 +195,29 @@ namespace XmlVisualizer
             this.groupBox1.Size = new System.Drawing.Size(568, 266);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
+            // 
+            // editorControlsUserControl
+            // 
+            this.editorControlsUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.editorControlsUserControl.ChangesInEditor = false;
+            this.editorControlsUserControl.Location = new System.Drawing.Point(6, 12);
+            this.editorControlsUserControl.Name = "editorControlsUserControl";
+            this.editorControlsUserControl.Size = new System.Drawing.Size(556, 248);
+            this.editorControlsUserControl.TabIndex = 26;
+            this.editorControlsUserControl.Visible = false;
+            // 
+            // treeViewUserControl
+            // 
+            this.treeViewUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeViewUserControl.Location = new System.Drawing.Point(6, 12);
+            this.treeViewUserControl.Name = "treeViewUserControl";
+            this.treeViewUserControl.Size = new System.Drawing.Size(557, 248);
+            this.treeViewUserControl.TabIndex = 25;
+            this.treeViewUserControl.Visible = false;
             // 
             // showLabel
             // 
@@ -564,29 +587,6 @@ namespace XmlVisualizer
             // 
             this.openXsdFileDialog.Filter = "XSD files|*.xsd|All files|*.*";
             this.openXsdFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openXsdFileDialog_FileOk);
-            // 
-            // editorControlsUserControl
-            // 
-            this.editorControlsUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.editorControlsUserControl.ChangesInEditor = false;
-            this.editorControlsUserControl.Location = new System.Drawing.Point(6, 12);
-            this.editorControlsUserControl.Name = "editorControlsUserControl";
-            this.editorControlsUserControl.Size = new System.Drawing.Size(556, 248);
-            this.editorControlsUserControl.TabIndex = 26;
-            this.editorControlsUserControl.Visible = false;
-            // 
-            // treeViewUserControl
-            // 
-            this.treeViewUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeViewUserControl.Location = new System.Drawing.Point(6, 12);
-            this.treeViewUserControl.Name = "treeViewUserControl";
-            this.treeViewUserControl.Size = new System.Drawing.Size(557, 248);
-            this.treeViewUserControl.TabIndex = 25;
-            this.treeViewUserControl.Visible = false;
             // 
             // MainForm
             // 

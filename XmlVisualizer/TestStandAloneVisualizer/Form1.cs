@@ -18,7 +18,6 @@ namespace TestStandAloneVisualizer
         {
             using (Visualizer visualizer = new Visualizer())
             {
-                visualizer.SetInputXml("");
                 visualizer.ShowDialog();
             }
 
