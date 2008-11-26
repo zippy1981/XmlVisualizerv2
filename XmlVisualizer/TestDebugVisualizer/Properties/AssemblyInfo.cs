@@ -5,11 +5,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("TestDebugVisualizer")]
+[assembly: AssemblyTitle("Xml Visualizer v.2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lars Hove Christiansen")]
-[assembly: AssemblyProduct("TestDebugVisualizer")]
+[assembly: AssemblyProduct("Xml Visualizer v.2")]
 [assembly: AssemblyCopyright("Copyright © Lars Hove Christiansen 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -2,9 +2,9 @@
 // by Lars Hove Christiansen (larshove@gmail.com)
 // http://www.codeplex.com/XmlVisualizer
 
-namespace TestStandAloneVisualizer
+namespace StandAloneVisualizer
 {
-    partial class Form1
+    partial class StandAloneVisualizer
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@ namespace TestStandAloneVisualizer
             this.ClientSize = new System.Drawing.Size(292, 273);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.StandAloneVisualizer_Load);
             this.ResumeLayout(false);
 
         }

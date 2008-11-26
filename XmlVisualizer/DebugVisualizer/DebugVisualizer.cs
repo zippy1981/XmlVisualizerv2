@@ -36,7 +36,7 @@ namespace XmlVisualizer
                     }
                 }
 
-                if (visualizer.DeleteInputXmlFile())
+                if (visualizer.GetDeleteInputXmlFile())
                 {
                     if (File.Exists(visualizer.GetInputXmlFileName()))
                     {

@@ -4,6 +4,7 @@
     {
         private readonly MainForm mainForm;
         private bool inputSet;
+        private bool fileLoaded;
 
         public Visualizer()
         {
@@ -38,17 +39,18 @@
 
             if (xml == null)
             {
-                mainForm.SetStandAlone(true);
+                mainForm.SetStandAlone();
             }
         }
 
         public void ShowDialog()
         {
-            if (!inputSet)
+            if (!inputSet && !fileLoaded)
             {
                 inputSet = true;
-                mainForm.SetStandAlone(true);
+                mainForm.SetStandAlone();
                 mainForm.SetInputXml("", false);
+                mainForm.SetNoInputFileOptions();
             }
 
             mainForm.ShowDialog();
@@ -64,14 +66,22 @@
             return mainForm.AnyChangesToInputXml();
         }
 
-        public bool DeleteInputXmlFile()
+        public bool GetDeleteInputXmlFile()
         {
-            return mainForm.DeleteOriginalFile();
+            return mainForm.GetDeleteOriginalFile();
         }
 
         public string GetInputXmlFileName()
         {
             return mainForm.originalXmlFile;
+        }
+
+        public void LoadXmlFile(string fileName)
+        {
+            inputSet = true;
+            fileLoaded = true;
+            mainForm.LoadXmlFileFromArgument(fileName);
+            mainForm.SetInputFileOptions();
         }
     }
 }

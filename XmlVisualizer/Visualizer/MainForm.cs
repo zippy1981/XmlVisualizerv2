@@ -58,9 +58,11 @@ namespace XmlVisualizer
             InitializeEditorEvents();
         }
 
-        public void SetStandAlone(bool value)
+        public void SetStandAlone()
         {
-            standAlone = value;
+            standAlone = true;
+            originalXmlFile = "";
+            debugString = "";
         }
 
         public bool AnyChangesToInputXml()
@@ -139,7 +141,7 @@ namespace XmlVisualizer
             toolStripStatusLabel.Text = string.Format("Ln {0}, Col {1}", line, column);
         }
 
-        public bool DeleteOriginalFile()
+        public bool GetDeleteOriginalFile()
         {
             return !doNotDeleteFile;
         }
@@ -492,8 +494,11 @@ namespace XmlVisualizer
 
         private void ReloadWebBrowser(string url)
         {
-            Uri uri = new Uri(url);
-            webBrowser.Url = uri;
+            if (!string.IsNullOrEmpty(url))
+            {
+                Uri uri = new Uri(url);
+                webBrowser.Url = uri;
+            }
         }
 
         private void ApplyXsltFile()
@@ -876,7 +881,7 @@ namespace XmlVisualizer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (debugString != "")
+            if (!standAlone)
             {
                 originalXmlFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
                 previousXmlFile = originalXmlFile;
@@ -884,14 +889,9 @@ namespace XmlVisualizer
                 WriteFile(originalXmlFile, debugString);
                 webBrowser.Url = new Uri(originalXmlFile);
             }
-            else
-            {
-                originalXmlFile = "";
-                SetNoInputFileOptions();
-            }
         }
 
-        private void SetNoInputFileOptions()
+        public void SetNoInputFileOptions()
         {
             openInBrowserButton.Enabled = false;
             toClipboardButton.Enabled = false;
@@ -910,7 +910,7 @@ namespace XmlVisualizer
             newXsdFileButton.Enabled = false;
         }
 
-        private void SetInputFileOptions()
+        public void SetInputFileOptions()
         {
             openInBrowserButton.Enabled = true;
             toClipboardButton.Enabled = true;
@@ -1087,7 +1087,14 @@ namespace XmlVisualizer
                 errorInXslt = false;
             }
 
-            SetActive(StateAfterClose);
+            if (debugString != "")
+            {
+                SetActive(StateAfterClose);
+            }
+            else
+            {
+                inputFileComboBox.Enabled = true;
+            }
 
             xsltFileComboBox.Text = appliedXsltFile;
             xsdFileComboBox.Text = appliedXsdFile;
@@ -1109,7 +1116,7 @@ namespace XmlVisualizer
             newXmlFileButton.Enabled = true;
             selectXmlFileButton.Enabled = true;
 
-            if (inputFileComboBox.Text != "")
+            if (debugString != "")
             {
                 newXsltFileButton.Enabled = true;
                 selectXsltFileButton.Enabled = true;
@@ -1126,10 +1133,6 @@ namespace XmlVisualizer
                 applyXsdButton.Enabled = true;
                 newXsdFileButton.Enabled = true;
                 selectXsdFileButton.Enabled = true;
-            }
-            else
-            {
-                editButton.Enabled = false;
             }
 
             if (treeviewEnabled)
@@ -1502,6 +1505,14 @@ namespace XmlVisualizer
             }
             else
             {
+                if (standAlone)
+                {
+                    if (debugString == "")
+                    {
+                        debugString = File.ReadAllText(inputFileComboBox.Text);
+                    }
+                }
+
                 if (inputFileComboBox.Text.Trim().ToLower() != originalXmlFile.ToLower())
                 {
                     if (ActiveState == States.InputFile)
@@ -1603,11 +1614,26 @@ namespace XmlVisualizer
             CheckForValidXsltInput();
         }
 
+        public void LoadXmlFileFromArgument(string fileName)
+        {
+            standAlone = true;
+            doNotDeleteFile = true;
+            HandleInjectAction(false);
+            debugString = File.ReadAllText(fileName);
+            originalXmlFile = fileName;
+            LoadXmlFile(fileName);
+        }
+
         private void OpenXmlFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            inputFileComboBox.Text = openXmlFileDialog.FileName;
+            LoadXmlFile(openXmlFileDialog.FileName);
+        }
+        
+        private void LoadXmlFile(string fileName)
+        {
+            inputFileComboBox.Text = fileName;
 
-            string dir = openXmlFileDialog.FileName.Substring(0, openXmlFileDialog.FileName.LastIndexOf("\\"));
+            string dir = fileName.Substring(0, fileName.LastIndexOf("\\"));
             Util.SaveToRegistry("LastXmlDir", dir);
 
             CheckForValidXmlInput();

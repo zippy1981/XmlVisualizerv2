@@ -5,7 +5,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace TestStandAloneVisualizer
+namespace StandAloneVisualizer
 {
     static class Program
     {
@@ -14,7 +14,7 @@ namespace TestStandAloneVisualizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new StandAloneVisualizer());
         }
     }
 }
