@@ -255,7 +255,11 @@ namespace XmlVisualizer
 
                 if (validationType == "XSL")
                 {
-                    Util.ShowMessage(Util.GetDetailedErrorMessage(e));
+                    Util.ShowMessage(string.Format("Error in Xml document: {0}\r\nPlease fix errors in the Xml document and try again.", Util.GetDetailedErrorMessage(e)));
+                }
+                else if (validationType == "XSD")
+                {
+                    Util.ShowMessage(string.Format("Error in XSD document: {0}\r\nPlease fix errors in the XSD document and try again.", Util.GetDetailedErrorMessage(e)));
                 }
                 else
                 {
@@ -366,7 +370,7 @@ namespace XmlVisualizer
             {
                 if (ValidateDocument(selectedValidationType))
                 {
-                    Util.ShowMessage(string.Format("{0} document validated successfully", GetDocumentType()));
+                    Util.ShowMessage(string.Format("{0} document validated successfully.", GetDocumentType()));
                     CloseStatusBox();
                 }
             }
@@ -426,7 +430,7 @@ namespace XmlVisualizer
 
                         if (showInvalidFormatWarning)
                         {
-                            Util.ShowMessage("Cannot format Xml document with errors.\nFix the errors and try again.");
+                            Util.ShowMessage("Cannot format Xml document with errors.\nPlease fix the errors and try again.");
                         }
                     }
                 }

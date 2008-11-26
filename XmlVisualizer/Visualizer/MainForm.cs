@@ -324,7 +324,7 @@ namespace XmlVisualizer
             switch (ActiveState)
             {
                 case States.XsltFile:
-                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
+                    WriteFile(fileName, editorControlsUserControl.GetText());
 
                     if (applyAfterSave)
                     {
@@ -340,7 +340,7 @@ namespace XmlVisualizer
 
                     break;
                 case States.XsdFile:
-                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
+                    WriteFile(fileName, editorControlsUserControl.GetText());
 
                     if (applyAfterSave)
                     {
@@ -350,7 +350,7 @@ namespace XmlVisualizer
 
                     break;
                 case States.InputFile:
-                    File.WriteAllText(fileName, editorControlsUserControl.GetText());
+                    WriteFile(fileName, editorControlsUserControl.GetText());
 
                     if (applyAfterSave)
                     {
@@ -360,6 +360,18 @@ namespace XmlVisualizer
                     }
 
                     break;
+            }
+        }
+
+        private static void WriteFile(string fileName, string content)
+        {
+            try
+            {
+                File.WriteAllText(fileName, content);
+            }
+            catch (Exception e)
+            {
+                Util.ShowMessage(Util.GetDetailedErrorMessage(e));
             }
         }
 
@@ -669,7 +681,7 @@ namespace XmlVisualizer
                 result = string.Format("<xml>\r\n{0}</xml>", result);
             }
 
-            File.WriteAllText(inputFileComboBox.Text, result);
+            WriteFile(inputFileComboBox.Text, result);
 
             if (previousXPathQuery != xPathComboBox.Text)
             {
@@ -855,7 +867,7 @@ namespace XmlVisualizer
                 originalXmlFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
                 previousXmlFile = originalXmlFile;
                 inputFileComboBox.Text = originalXmlFile;
-                File.WriteAllText(originalXmlFile, debugString);
+                WriteFile(originalXmlFile, debugString);
                 webBrowser.Url = new Uri(originalXmlFile);
             }
             else
