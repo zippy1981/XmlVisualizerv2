@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugVisualizer", "DebugVis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{49F5835F-B647-444D-BAAA-6AC39D8DDE59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandAloneVisualizer", "TestStandAloneVisualizer\StandAloneVisualizer.csproj", "{62651717-0169-42B6-8642-D41A210653B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandAloneVisualizer", "StandAloneVisualizer\StandAloneVisualizer.csproj", "{62651717-0169-42B6-8642-D41A210653B2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{49F5835F-B647-444D-BAAA-6AC39D8DDE59} = {49F5835F-B647-444D-BAAA-6AC39D8DDE59}
 	EndProjectSection
@@ -26,9 +26,9 @@ Global
 		SccProjectUniqueName3 = Visualizer\\Visualizer.csproj
 		SccProjectName3 = Visualizer
 		SccLocalPath3 = Visualizer
-		SccProjectUniqueName4 = TestStandAloneVisualizer\\StandAloneVisualizer.csproj
-		SccProjectName4 = TestStandAloneVisualizer
-		SccLocalPath4 = TestStandAloneVisualizer
+		SccProjectUniqueName4 = StandAloneVisualizer\\StandAloneVisualizer.csproj
+		SccProjectName4 = StandAloneVisualizer
+		SccLocalPath4 = StandAloneVisualizer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
