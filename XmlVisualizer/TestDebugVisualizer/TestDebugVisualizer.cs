@@ -4,17 +4,17 @@
 
 using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace TestDebugVisualizer
 {
-    public partial class Form1 : Form
+    public static class TestDebugVisualizer
     {
-        public Form1()
+        [STAThread]
+        static void Main()
         {
-            InitializeComponent();
             CreateXsltTestDoc();
             CreateXsdTestDoc();
+            LoadVisualizer();
         }
 
         private static void CreateXsltTestDoc()
@@ -31,14 +31,12 @@ namespace TestDebugVisualizer
             File.WriteAllText(xsdFile, xsdDoc);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private static void LoadVisualizer()
         {
             //string xmlDoc = "<?xml version=\"1.0\"?><bookstore xmlns=\"urn:bookstore-schema\"><book><title>test 123</title><author><first-name>Benjamin</first-name><last-name>Franklin</last-name></author></book><book genre=\"novel\"><title>The Confidence Man</title><author><first-name>Herman</first-name><last-name>Melville</last-name></author><price>11.99</price></book><book genre=\"philosophy\"><title>The Gorgias</title><author><first-name>Herman</first-name><last-name>Melville</last-name></author><price>9.99</price></book></bookstore>";
             string xmlDoc = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><catalog><cd country=\"USA\"><title>Empire Burlesque</title><artist>Bob Dylan</artist><price>10.90</price></cd><cd country=\"UK\"><title>Hide your heart</title><artist>Bonnie Tyler</artist><price>10.0</price></cd><cd country=\"USA\"><title>Greatest Hits</title><artist>Dolly Parton</artist><price>9.90</price></cd></catalog>";
             Microsoft.VisualStudio.DebuggerVisualizers.VisualizerDevelopmentHost host = new Microsoft.VisualStudio.DebuggerVisualizers.VisualizerDevelopmentHost(xmlDoc, typeof(XmlVisualizer.DebugVisualizer));
             host.ShowVisualizer();
-
-            Close();
         }
     }
 }

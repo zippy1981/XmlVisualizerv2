@@ -1050,10 +1050,10 @@ namespace XmlVisualizer
             editorControlsUserControl.originalXmlFile = originalXmlFile;
             editorControlsUserControl.appliedXsdFile = appliedXsdFile;
             editorControlsUserControl.activeState = ActiveState.ToString();
-            editorControlsUserControl.EnableEditor();
             editorControlsUserControl.ReadFormatXmlState();
             editorControlsUserControl.Visible = true;
             editorEnabled = true;
+            editorControlsUserControl.EnableEditor();
         }
 
         private void DisableEditorControl(bool applyAfterSave)
@@ -1237,10 +1237,10 @@ namespace XmlVisualizer
             switch (ActiveState)
             {
                 case States.XsdFile:
-                    url = xsdFileComboBox.Text;
+                    url = appliedXsdFile;
                     break;
                 default:
-                    url = inputFileComboBox.Text;
+                    url = originalXmlFile;
                     break;
             }
 
