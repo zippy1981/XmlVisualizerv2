@@ -32,7 +32,6 @@ namespace XmlVisualizer
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.okButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.urlLinkLabel = new System.Windows.Forms.LinkLabel();
@@ -89,7 +88,7 @@ namespace XmlVisualizer
             // pictureBox
             // 
             this.pictureBox.ErrorImage = null;
-            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
+            this.pictureBox.Image = global::XmlVisualizer.Properties.Resources.bug;
             this.pictureBox.InitialImage = null;
             this.pictureBox.Location = new System.Drawing.Point(239, 6);
             this.pictureBox.Name = "pictureBox";
@@ -200,10 +199,10 @@ namespace XmlVisualizer
             this.Name = "AboutForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

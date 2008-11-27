@@ -1783,5 +1783,24 @@ namespace XmlVisualizer
 
             CheckForValidXsdInput();
         }
+
+        private void inputFileComboBox_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            LoadXmlFile(files[0]);
+        }
+
+        private void inputFileComboBox_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                if (files.Length == 1)
+                {
+                    e.Effect = DragDropEffects.All;
+                }
+            }
+        }
     }
 }

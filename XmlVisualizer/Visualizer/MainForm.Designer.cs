@@ -317,6 +317,7 @@ namespace XmlVisualizer
             // 
             // inputFileComboBox
             // 
+            this.inputFileComboBox.AllowDrop = true;
             this.inputFileComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.inputFileComboBox.FormattingEnabled = true;
@@ -325,7 +326,9 @@ namespace XmlVisualizer
             this.inputFileComboBox.Size = new System.Drawing.Size(339, 21);
             this.inputFileComboBox.TabIndex = 1;
             this.inputFileComboBox.SelectionChangeCommitted += new System.EventHandler(this.inputFileComboBox_SelectionChangeCommitted);
+            this.inputFileComboBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.inputFileComboBox_DragDrop);
             this.inputFileComboBox.MouseEnter += new System.EventHandler(this.inputFileComboBox_MouseEnter);
+            this.inputFileComboBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.inputFileComboBox_DragEnter);
             this.inputFileComboBox.MouseLeave += new System.EventHandler(this.inputFileComboBox_MouseLeave);
             this.inputFileComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputFileComboBox_KeyDown);
             // 
