@@ -261,6 +261,7 @@ namespace XmlVisualizer
             // 
             // xsltFileComboBox
             // 
+            this.xsltFileComboBox.AllowDrop = true;
             this.xsltFileComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.xsltFileComboBox.FormattingEnabled = true;
@@ -269,7 +270,9 @@ namespace XmlVisualizer
             this.xsltFileComboBox.Size = new System.Drawing.Size(339, 21);
             this.xsltFileComboBox.TabIndex = 5;
             this.xsltFileComboBox.SelectionChangeCommitted += new System.EventHandler(this.XsltFileComboBox_SelectionChangeCommitted);
+            this.xsltFileComboBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.xsltFileComboBox_DragDrop);
             this.xsltFileComboBox.MouseEnter += new System.EventHandler(this.xsltFileComboBox_MouseEnter);
+            this.xsltFileComboBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.xsltFileComboBox_DragEnter);
             this.xsltFileComboBox.MouseLeave += new System.EventHandler(this.xsltFileComboBox_MouseLeave);
             this.xsltFileComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.XsltFileComboBox_KeyDown);
             // 
@@ -525,6 +528,7 @@ namespace XmlVisualizer
             // 
             // xsdFileComboBox
             // 
+            this.xsdFileComboBox.AllowDrop = true;
             this.xsdFileComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.xsdFileComboBox.FormattingEnabled = true;
@@ -533,7 +537,9 @@ namespace XmlVisualizer
             this.xsdFileComboBox.Size = new System.Drawing.Size(339, 21);
             this.xsdFileComboBox.TabIndex = 20;
             this.xsdFileComboBox.SelectionChangeCommitted += new System.EventHandler(this.xsdFileComboBox_SelectionChangeCommitted);
+            this.xsdFileComboBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.xsdFileComboBox_DragDrop);
             this.xsdFileComboBox.MouseEnter += new System.EventHandler(this.xsdFileComboBox_MouseEnter);
+            this.xsdFileComboBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.xsdFileComboBox_DragEnter);
             this.xsdFileComboBox.MouseLeave += new System.EventHandler(this.xsdFileComboBox_MouseLeave);
             this.xsdFileComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.xsdFileComboBox_KeyDown);
             // 

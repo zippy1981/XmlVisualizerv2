@@ -1606,9 +1606,14 @@ namespace XmlVisualizer
 
         private void OpenXsltFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            xsltFileComboBox.Text = openXsltFileDialog.FileName;
+            LoadXsltFile(openXsltFileDialog.FileName);
+        }
 
-            string dir = openXsltFileDialog.FileName.Substring(0, openXsltFileDialog.FileName.LastIndexOf("\\"));
+        private void LoadXsltFile(string fileName)
+        {
+            xsltFileComboBox.Text = fileName;
+
+            string dir = fileName.Substring(0, fileName.LastIndexOf("\\"));
             Util.SaveToRegistry("LastXsltDir", dir);
 
             CheckForValidXsltInput();
@@ -1776,9 +1781,14 @@ namespace XmlVisualizer
 
         private void openXsdFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            xsdFileComboBox.Text = openXsdFileDialog.FileName;
+            LoadXsdFile(openXsdFileDialog.FileName);
+        }
 
-            string dir = openXsdFileDialog.FileName.Substring(0, openXsdFileDialog.FileName.LastIndexOf("\\"));
+        private void LoadXsdFile(string fileName)
+        {
+            xsdFileComboBox.Text = fileName;
+
+            string dir = fileName.Substring(0, fileName.LastIndexOf("\\"));
             Util.SaveToRegistry("LastXsdDir", dir);
 
             CheckForValidXsdInput();
@@ -1792,6 +1802,22 @@ namespace XmlVisualizer
 
         private void inputFileComboBox_DragEnter(object sender, DragEventArgs e)
         {
+            AllowFileDragEnter(e);
+        }
+
+        private void xsltFileComboBox_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            LoadXsltFile(files[0]);
+        }
+
+        private void xsltFileComboBox_DragEnter(object sender, DragEventArgs e)
+        {
+            AllowFileDragEnter(e);
+        }
+
+        private static void AllowFileDragEnter(DragEventArgs e)
+        {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -1801,6 +1827,17 @@ namespace XmlVisualizer
                     e.Effect = DragDropEffects.All;
                 }
             }
+        }
+
+        private void xsdFileComboBox_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            LoadXsdFile(files[0]);
+        }
+
+        private void xsdFileComboBox_DragEnter(object sender, DragEventArgs e)
+        {
+            AllowFileDragEnter(e);
         }
     }
 }
