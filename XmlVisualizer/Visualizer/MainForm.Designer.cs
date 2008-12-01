@@ -244,6 +244,7 @@ namespace XmlVisualizer
             this.injectCheckBox.UseVisualStyleBackColor = true;
             this.injectCheckBox.MouseLeave += new System.EventHandler(this.injectCheckBox_MouseLeave);
             this.injectCheckBox.MouseEnter += new System.EventHandler(this.injectCheckBox_MouseEnter);
+            this.injectCheckBox.CheckedChanged += new System.EventHandler(this.injectCheckBox_CheckedChanged);
             // 
             // xPathComboBox
             // 

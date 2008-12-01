@@ -54,6 +54,7 @@ namespace XmlVisualizer
             FillInputFileComboBox();
             SetMainFormProperties(this);
             SetActive(States.InputFile);
+            ReadInjectState();
             InitializeTreeViewEvents();
             InitializeEditorEvents();
         }
@@ -1838,6 +1839,24 @@ namespace XmlVisualizer
         private void xsdFileComboBox_DragEnter(object sender, DragEventArgs e)
         {
             AllowFileDragEnter(e);
+        }
+
+        private void injectCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Util.SaveToRegistry("Inject", injectCheckBox.Checked.ToString());
+        }
+
+        private void ReadInjectState()
+        {
+            string readInjectXml = Util.ReadFromRegistry("Inject");
+            bool injectXml = false;
+
+            if (readInjectXml == "True")
+            {
+                injectXml = true;
+            }
+
+            injectCheckBox.Checked = injectXml;
         }
     }
 }
