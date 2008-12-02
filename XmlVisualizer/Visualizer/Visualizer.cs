@@ -45,6 +45,18 @@
 
         public void ShowDialog()
         {
+            PreShow();
+            mainForm.ShowDialog();
+        }
+
+        public void Show()
+        {
+            PreShow();
+            mainForm.Show();
+        }
+        
+        private void PreShow()
+        {
             if (!inputSet && !fileLoaded)
             {
                 inputSet = true;
@@ -52,8 +64,6 @@
                 mainForm.SetInputXml("", false);
                 mainForm.SetNoInputFileOptions();
             }
-
-            mainForm.ShowDialog();
         }
 
         public bool InjectEnabled()
