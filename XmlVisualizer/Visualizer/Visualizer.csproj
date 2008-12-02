@@ -159,9 +159,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>cd $(TargetDir)
-if not exist "..\..\runtime" mkdir "..\..\runtime"
-..\..\..\ILMerge.exe /target:library /out:..\..\runtime\Visualizer.dll Visualizer.dll ..\..\ICSharpCode.TextEditor.dll
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

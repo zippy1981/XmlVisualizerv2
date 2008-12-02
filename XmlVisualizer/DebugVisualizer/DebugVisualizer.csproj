@@ -61,7 +61,7 @@
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
 if not exist "..\..\runtime" mkdir "..\..\runtime"
-..\..\..\ILMerge.exe /target:library /out:..\..\runtime\XmlVisualizer.dll DebugVisualizer.dll ..\..\..\Visualizer\runtime\Visualizer.dll
+..\..\..\ILMerge.exe /target:library /out:..\..\runtime\XmlVisualizer.dll DebugVisualizer.dll Visualizer.dll ICSharpCode.TextEditor.dll
 </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
