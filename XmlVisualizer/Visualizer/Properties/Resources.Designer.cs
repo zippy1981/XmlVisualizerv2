@@ -67,6 +67,13 @@ namespace XmlVisualizer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap btn_donate_SM {
+            get {
+                object obj = ResourceManager.GetObject("btn_donate_SM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap bug {
             get {
                 object obj = ResourceManager.GetObject("bug", resourceCulture);

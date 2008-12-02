@@ -36,7 +36,6 @@ namespace XmlVisualizer
             this.titleLabel = new System.Windows.Forms.Label();
             this.urlLinkLabel = new System.Windows.Forms.LinkLabel();
             this.line = new System.Windows.Forms.Label();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.mailLinkLabel = new System.Windows.Forms.LinkLabel();
             this.mailLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -45,7 +44,10 @@ namespace XmlVisualizer
             this.iconsLabel = new System.Windows.Forms.Label();
             this.editorLabel = new System.Windows.Forms.Label();
             this.editorLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.donatePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.donatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
@@ -84,17 +86,6 @@ namespace XmlVisualizer
             this.line.Name = "line";
             this.line.Size = new System.Drawing.Size(260, 2);
             this.line.TabIndex = 14;
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.ErrorImage = null;
-            this.pictureBox.Image = global::XmlVisualizer.Properties.Resources.bug;
-            this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(239, 6);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox.TabIndex = 15;
-            this.pictureBox.TabStop = false;
             // 
             // mailLinkLabel
             // 
@@ -174,12 +165,36 @@ namespace XmlVisualizer
             this.editorLinkLabel.Text = "http://sharpdevelop.net";
             this.editorLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.editorLinkLabel_LinkClicked);
             // 
+            // pictureBox
+            // 
+            this.pictureBox.ErrorImage = null;
+            this.pictureBox.Image = global::XmlVisualizer.Properties.Resources.bug;
+            this.pictureBox.InitialImage = null;
+            this.pictureBox.Location = new System.Drawing.Point(239, 6);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox.TabIndex = 15;
+            this.pictureBox.TabStop = false;
+            // 
+            // donatePictureBox
+            // 
+            this.donatePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.donatePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.donatePictureBox.Image = global::XmlVisualizer.Properties.Resources.btn_donate_SM;
+            this.donatePictureBox.Location = new System.Drawing.Point(12, 206);
+            this.donatePictureBox.Name = "donatePictureBox";
+            this.donatePictureBox.Size = new System.Drawing.Size(73, 23);
+            this.donatePictureBox.TabIndex = 24;
+            this.donatePictureBox.TabStop = false;
+            this.donatePictureBox.Click += new System.EventHandler(this.donatePictureBox_Click);
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(267, 239);
             this.ControlBox = false;
+            this.Controls.Add(this.donatePictureBox);
             this.Controls.Add(this.editorLinkLabel);
             this.Controls.Add(this.editorLabel);
             this.Controls.Add(this.iconsLinkLabel);
@@ -200,6 +215,7 @@ namespace XmlVisualizer
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.donatePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,5 +236,6 @@ namespace XmlVisualizer
         private System.Windows.Forms.Label iconsLabel;
         private System.Windows.Forms.Label editorLabel;
         private System.Windows.Forms.LinkLabel editorLinkLabel;
+        private System.Windows.Forms.PictureBox donatePictureBox;
     }
 }

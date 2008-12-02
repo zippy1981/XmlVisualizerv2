@@ -64,5 +64,13 @@ namespace XmlVisualizer
             System.Diagnostics.Process.Start(psi);
             Close();
         }
+
+        private void donatePictureBox_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(Util.GetDefaultWebBrowser());
+            psi.Arguments = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZWQLCKZ4B9QKS&lc=GB&item_name=Xml%20Visualizer%20v%2e2&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
+            System.Diagnostics.Process.Start(psi);
+            Close();
+        }
     }
 }

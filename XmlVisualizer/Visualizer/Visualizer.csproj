@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ICSharpCode.TextEditor.dll" />
+    <None Include="Resources\btn_donate_SM.gif" />
     <None Include="Resources\bug.png" />
     <None Include="Resources\page_find.png" />
   </ItemGroup>
