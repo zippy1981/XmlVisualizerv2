@@ -59,11 +59,39 @@ namespace XmlVisualizer
             InitializeEditorEvents();
         }
 
+        public void ClearMainForm()
+        {
+            ActiveState = States.InputFile;
+            StateBeforeNewFile = States.InputFile;
+            StateBeforeXsltError = States.InputFile;
+            previousXPathQuery = null;
+            previousXsltFile = null;
+            previousXmlFile = null;
+            previousXsdFile = null;
+            previousFileFromXPath = null;
+            previousFileFromXslt = null;
+            appliedXsltFile = null;
+            debugString = null;
+            previousXPathQuery = null;
+            mainFormLoaded = false;
+            errorInXslt = false;
+            errorInXml = false;
+            editorEnabled = false;
+            treeviewEnabled = false;
+            newFile = false;
+            doNotDeleteFile = false;
+            mainFormPropertiesSet = false;
+            standAlone = false;
+            inject = false;
+            originalXmlFile = null;
+        }
+
         public void SetStandAlone()
         {
             standAlone = true;
             originalXmlFile = "";
             debugString = "";
+            HandleInjectAction(false);
         }
 
         public bool AnyChangesToInputXml()
@@ -71,7 +99,7 @@ namespace XmlVisualizer
             return editorControlsUserControl.AnyChangesToInject();
         }
 
-        public void SetInputXml(string objectString, bool replaceable)
+        public void LoadXmlFromString(string objectString, bool replaceable)
         {
             debugString = objectString;
             HandleInjectAction(replaceable);
@@ -117,7 +145,7 @@ namespace XmlVisualizer
             if (!compatible)
             {
                 Util.ShowMessage("Sorry, only 96 DPI supported.");
-                Dispose();
+                Dispose(true);
             }
         }
 
@@ -479,7 +507,7 @@ namespace XmlVisualizer
                 inject = true;
             }
 
-            Dispose();
+            Dispose(true);
         }
 
         private void AboutButton_Click(object sender, EventArgs e)
@@ -882,7 +910,7 @@ namespace XmlVisualizer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!standAlone)
+            if (debugString != "")
             {
                 originalXmlFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
                 previousXmlFile = originalXmlFile;
@@ -1620,11 +1648,9 @@ namespace XmlVisualizer
             CheckForValidXsltInput();
         }
 
-        public void LoadXmlFileFromArgument(string fileName)
+        public void LoadXmlFromFile(string fileName)
         {
-            standAlone = true;
             doNotDeleteFile = true;
-            HandleInjectAction(false);
             debugString = File.ReadAllText(fileName);
             originalXmlFile = fileName;
             LoadXmlFile(fileName);

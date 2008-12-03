@@ -5,18 +5,18 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Xml Visualizer v.2")]
+[assembly: AssemblyTitle("TestStandAloneVisualizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lars Hove Christiansen")]
-[assembly: AssemblyProduct("Xml Visualizer v.2")]
+[assembly: AssemblyProduct("TestStandAloneVisualizer")]
 [assembly: AssemblyCopyright("Copyright © Lars Hove Christiansen 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("c71e4664-eacf-424c-b5f0-be2e1aa48d50")]
+[assembly: Guid("e99863d6-82f4-42f7-8e6b-f901ad1606cc")]
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
