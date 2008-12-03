@@ -33,7 +33,15 @@ namespace TestStandAloneVisualizer
         {
             using (Visualizer visualizer = new Visualizer(true))
             {
+                //visualizer.LoadXmlFromFile("c:\\temp\\test.xml");
+                //visualizer.LoadXmlFromString("<xml>test</xml>");
+                //visualizer.LoadXmlFromString("");
+                //visualizer.LoadXmlFromFile(null);
+                //visualizer.LoadXmlFromFile("");
+
                 visualizer.Show();
+
+               //MessageBox.Show(visualizer.GetModifiedXml());
             }
         }
 

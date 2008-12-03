@@ -910,7 +910,7 @@ namespace XmlVisualizer
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (debugString != "")
+            if ((!String.IsNullOrEmpty(debugString) && !standAlone) || (String.IsNullOrEmpty(originalXmlFile) && !String.IsNullOrEmpty(debugString)))
             {
                 originalXmlFile = string.Format(@"{0}{1}.xml", Path.GetTempPath(), Guid.NewGuid());
                 previousXmlFile = originalXmlFile;
