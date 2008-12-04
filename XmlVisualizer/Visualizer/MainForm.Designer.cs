@@ -160,7 +160,7 @@ namespace XmlVisualizer
             this.applyXpathButton.Location = new System.Drawing.Point(505, 90);
             this.applyXpathButton.Name = "applyXpathButton";
             this.applyXpathButton.Size = new System.Drawing.Size(75, 23);
-            this.applyXpathButton.TabIndex = 11;
+            this.applyXpathButton.TabIndex = 15;
             this.applyXpathButton.Text = "Apply";
             this.applyXpathButton.UseVisualStyleBackColor = true;
             this.applyXpathButton.MouseLeave += new System.EventHandler(this.applyXpathButton_MouseLeave);
@@ -179,7 +179,7 @@ namespace XmlVisualizer
             this.xPathTypeComboBox.Location = new System.Drawing.Point(352, 91);
             this.xPathTypeComboBox.Name = "xPathTypeComboBox";
             this.xPathTypeComboBox.Size = new System.Drawing.Size(112, 21);
-            this.xPathTypeComboBox.TabIndex = 10;
+            this.xPathTypeComboBox.TabIndex = 14;
             this.xPathTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.XPathTypeComboBox_SelectedIndexChanged);
             this.xPathTypeComboBox.MouseEnter += new System.EventHandler(this.xPathTypeComboBox_MouseEnter);
             this.xPathTypeComboBox.MouseLeave += new System.EventHandler(this.xPathTypeComboBox_MouseLeave);
@@ -239,7 +239,7 @@ namespace XmlVisualizer
             this.injectCheckBox.Location = new System.Drawing.Point(427, 400);
             this.injectCheckBox.Name = "injectCheckBox";
             this.injectCheckBox.Size = new System.Drawing.Size(72, 17);
-            this.injectCheckBox.TabIndex = 17;
+            this.injectCheckBox.TabIndex = 21;
             this.injectCheckBox.Text = "Inject Xml";
             this.injectCheckBox.UseVisualStyleBackColor = true;
             this.injectCheckBox.MouseLeave += new System.EventHandler(this.injectCheckBox_MouseLeave);
@@ -254,7 +254,7 @@ namespace XmlVisualizer
             this.xPathComboBox.Location = new System.Drawing.Point(65, 91);
             this.xPathComboBox.Name = "xPathComboBox";
             this.xPathComboBox.Size = new System.Drawing.Size(241, 21);
-            this.xPathComboBox.TabIndex = 9;
+            this.xPathComboBox.TabIndex = 13;
             this.xPathComboBox.SelectedIndexChanged += new System.EventHandler(this.XPathComboBox_SelectedIndexChanged);
             this.xPathComboBox.MouseEnter += new System.EventHandler(this.xPathComboBox_MouseEnter);
             this.xPathComboBox.MouseLeave += new System.EventHandler(this.xPathComboBox_MouseLeave);
@@ -284,7 +284,7 @@ namespace XmlVisualizer
             this.treeViewCheckBox.Location = new System.Drawing.Point(294, 400);
             this.treeViewCheckBox.Name = "treeViewCheckBox";
             this.treeViewCheckBox.Size = new System.Drawing.Size(92, 17);
-            this.treeViewCheckBox.TabIndex = 16;
+            this.treeViewCheckBox.TabIndex = 20;
             this.treeViewCheckBox.Text = "Show as Tree";
             this.treeViewCheckBox.UseVisualStyleBackColor = true;
             this.treeViewCheckBox.MouseLeave += new System.EventHandler(this.treeViewCheckBox_MouseLeave);
@@ -393,7 +393,7 @@ namespace XmlVisualizer
             this.editButton.Location = new System.Drawing.Point(213, 396);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(75, 23);
-            this.editButton.TabIndex = 15;
+            this.editButton.TabIndex = 19;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
             this.editButton.MouseLeave += new System.EventHandler(this.editButton_MouseLeave);
@@ -408,7 +408,7 @@ namespace XmlVisualizer
             this.openInBrowserButton.Location = new System.Drawing.Point(51, 396);
             this.openInBrowserButton.Name = "openInBrowserButton";
             this.openInBrowserButton.Size = new System.Drawing.Size(75, 23);
-            this.openInBrowserButton.TabIndex = 13;
+            this.openInBrowserButton.TabIndex = 17;
             this.openInBrowserButton.Text = "Open";
             this.openInBrowserButton.UseVisualStyleBackColor = true;
             this.openInBrowserButton.MouseLeave += new System.EventHandler(this.openInBrowserButton_MouseLeave);
@@ -465,7 +465,7 @@ namespace XmlVisualizer
             this.toClipboardButton.Location = new System.Drawing.Point(132, 396);
             this.toClipboardButton.Name = "toClipboardButton";
             this.toClipboardButton.Size = new System.Drawing.Size(75, 23);
-            this.toClipboardButton.TabIndex = 14;
+            this.toClipboardButton.TabIndex = 18;
             this.toClipboardButton.Text = "Copy";
             this.toClipboardButton.UseVisualStyleBackColor = true;
             this.toClipboardButton.MouseLeave += new System.EventHandler(this.toClipboardButton_MouseLeave);
@@ -480,7 +480,7 @@ namespace XmlVisualizer
             this.aboutButton.Location = new System.Drawing.Point(13, 396);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(32, 23);
-            this.aboutButton.TabIndex = 12;
+            this.aboutButton.TabIndex = 16;
             this.aboutButton.UseVisualStyleBackColor = true;
             this.aboutButton.MouseLeave += new System.EventHandler(this.aboutButton_MouseLeave);
             this.aboutButton.Click += new System.EventHandler(this.AboutButton_Click);
@@ -494,7 +494,7 @@ namespace XmlVisualizer
             this.closeButton.Location = new System.Drawing.Point(505, 396);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
-            this.closeButton.TabIndex = 18;
+            this.closeButton.TabIndex = 22;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.MouseLeave += new System.EventHandler(this.closeButton_MouseLeave);
@@ -521,7 +521,7 @@ namespace XmlVisualizer
             this.newXsdFileButton.Location = new System.Drawing.Point(440, 64);
             this.newXsdFileButton.Name = "newXsdFileButton";
             this.newXsdFileButton.Size = new System.Drawing.Size(24, 23);
-            this.newXsdFileButton.TabIndex = 22;
+            this.newXsdFileButton.TabIndex = 11;
             this.newXsdFileButton.UseVisualStyleBackColor = true;
             this.newXsdFileButton.MouseLeave += new System.EventHandler(this.newXsdFileButton_MouseLeave);
             this.newXsdFileButton.Click += new System.EventHandler(this.newXsdFileButton_Click);
@@ -536,7 +536,7 @@ namespace XmlVisualizer
             this.xsdFileComboBox.Location = new System.Drawing.Point(65, 65);
             this.xsdFileComboBox.Name = "xsdFileComboBox";
             this.xsdFileComboBox.Size = new System.Drawing.Size(339, 21);
-            this.xsdFileComboBox.TabIndex = 20;
+            this.xsdFileComboBox.TabIndex = 9;
             this.xsdFileComboBox.SelectionChangeCommitted += new System.EventHandler(this.xsdFileComboBox_SelectionChangeCommitted);
             this.xsdFileComboBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.xsdFileComboBox_DragDrop);
             this.xsdFileComboBox.MouseEnter += new System.EventHandler(this.xsdFileComboBox_MouseEnter);
@@ -566,7 +566,7 @@ namespace XmlVisualizer
             this.selectXsdFileButton.Location = new System.Drawing.Point(410, 64);
             this.selectXsdFileButton.Name = "selectXsdFileButton";
             this.selectXsdFileButton.Size = new System.Drawing.Size(24, 23);
-            this.selectXsdFileButton.TabIndex = 21;
+            this.selectXsdFileButton.TabIndex = 10;
             this.selectXsdFileButton.UseVisualStyleBackColor = true;
             this.selectXsdFileButton.MouseLeave += new System.EventHandler(this.selectXsdFileButton_MouseLeave);
             this.selectXsdFileButton.Click += new System.EventHandler(this.selectXsdFileButton_Click);
@@ -587,7 +587,7 @@ namespace XmlVisualizer
             this.applyXsdButton.Location = new System.Drawing.Point(505, 64);
             this.applyXsdButton.Name = "applyXsdButton";
             this.applyXsdButton.Size = new System.Drawing.Size(75, 23);
-            this.applyXsdButton.TabIndex = 24;
+            this.applyXsdButton.TabIndex = 12;
             this.applyXsdButton.Text = "Apply";
             this.applyXsdButton.UseVisualStyleBackColor = true;
             this.applyXsdButton.MouseLeave += new System.EventHandler(this.applyXsdButton_MouseLeave);

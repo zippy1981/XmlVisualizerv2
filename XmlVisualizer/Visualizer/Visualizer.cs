@@ -31,7 +31,6 @@ namespace XmlVisualizer
 
             if (standAlone)
             {
-                mainForm.ClearMainForm();
                 mainForm.SetStandAlone();
             }
         }
