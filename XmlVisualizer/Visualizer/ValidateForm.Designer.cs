@@ -1,6 +1,6 @@
 ﻿namespace XmlVisualizer
 {
-    partial class ValidateForm
+    internal partial class ValidateForm
     {
         /// <summary>
         /// Required designer variable.

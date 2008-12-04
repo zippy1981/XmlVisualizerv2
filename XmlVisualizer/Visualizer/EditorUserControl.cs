@@ -14,7 +14,7 @@ namespace XmlVisualizer
         public delegate void CaretChangeEventHandler(int line, int column);
         public event CaretChangeEventHandler CaretChangeEvent;
 
-        private static bool textChanged;
+        private bool textChanged;
         
         public EditorUserControl()
         {
@@ -35,7 +35,7 @@ namespace XmlVisualizer
             CaretChangeEvent(line, column);
         }
 
-        static void Document_DocumentChanged(object sender, DocumentEventArgs e)
+        private void Document_DocumentChanged(object sender, DocumentEventArgs e)
         {
             textChanged = true;
         }

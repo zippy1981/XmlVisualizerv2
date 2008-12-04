@@ -4,7 +4,7 @@
 
 namespace XmlVisualizer
 {
-    partial class TreeViewUserControl
+    internal partial class TreeViewUserControl
     {
         /// <summary> 
         /// Required designer variable.

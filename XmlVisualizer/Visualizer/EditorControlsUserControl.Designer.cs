@@ -4,7 +4,7 @@
 
 namespace XmlVisualizer
 {
-    partial class EditorControlsUserControl
+    internal partial class EditorControlsUserControl
     {
         /// <summary> 
         /// Required designer variable.

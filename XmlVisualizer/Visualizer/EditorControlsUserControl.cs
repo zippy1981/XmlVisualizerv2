@@ -42,13 +42,13 @@ namespace XmlVisualizer
         public string appliedXsdFile;
         
         private string selectedValidationType;
-        private static bool failBeforeFormat;
-        private static bool failBeforeUnformat;
-        private static bool editorStatusTextBoxVisible;
-        private static bool doNotHandleFormat;
-        private static bool searchActivated;
-        private static bool anyChangesInEditor;
-        private static bool xsdError;
+        private bool failBeforeFormat;
+        private bool failBeforeUnformat;
+        private bool editorStatusTextBoxVisible;
+        private bool doNotHandleFormat;
+        private bool searchActivated;
+        private bool anyChangesInEditor;
+        private bool xsdError;
 
         public EditorControlsUserControl()
         {

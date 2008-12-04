@@ -4,7 +4,7 @@
 
 namespace XmlVisualizer
 {
-    partial class AboutForm
+    internal partial class AboutForm
     {
         /// <summary>
         /// Required designer variable.

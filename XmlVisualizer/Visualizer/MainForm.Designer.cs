@@ -686,7 +686,7 @@ namespace XmlVisualizer
         private System.Windows.Forms.Button newXsltFileButton;
         private System.Windows.Forms.CheckBox treeViewCheckBox;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private XmlVisualizer.TreeViewUserControl treeViewUserControl;
+        private TreeViewUserControl treeViewUserControl;
         private EditorControlsUserControl editorControlsUserControl;
         private System.Windows.Forms.ComboBox inputFileComboBox;
         private System.Windows.Forms.Button newXmlFileButton;
@@ -702,6 +702,5 @@ namespace XmlVisualizer
         private System.Windows.Forms.Label xsdFileLabel;
         private System.Windows.Forms.Button applyXsdButton;
         private System.Windows.Forms.OpenFileDialog openXsdFileDialog;
-
     }
 }

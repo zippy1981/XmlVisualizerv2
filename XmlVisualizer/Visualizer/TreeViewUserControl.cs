@@ -14,12 +14,12 @@ namespace XmlVisualizer
     {
         public delegate void StatusTextEventEventHandler(string statusText);
         public event StatusTextEventEventHandler StatusTextEvent;
-        
+
         private int findIndex;
         private int hitCount;
         private int numberOfHits;
         private string previousSearchString;
-        private static bool searchActivated;
+        private bool searchActivated;
 
         public TreeViewUserControl()
         {
@@ -34,7 +34,7 @@ namespace XmlVisualizer
         public bool ReloadTreeView(string xml)
         {
             bool success = true;
-            
+
             try
             {
                 XmlDocument dom = new XmlDocument();
@@ -137,6 +137,7 @@ namespace XmlVisualizer
 
             foreach (TreeNode node in nodes)
             {
+                FindInNode(node);
                 FindRecursive(node);
             }
 
@@ -152,21 +153,28 @@ namespace XmlVisualizer
         {
             foreach (TreeNode node in treeNode.Nodes)
             {
-                if (node.Text.ToLower().Contains(searchTreeTextBox.Text.ToLower()))
-                {
-                    hitCount++;
-                    node.BackColor = Color.Yellow;
-
-                    if (hitCount == findIndex)
-                    {
-                        node.BackColor = Color.Blue;
-                        node.ForeColor = Color.White;
-                        treeView.SelectedNode = node;
-                        node.EnsureVisible();
-                    }
-                }
-
+                FindInNode(node);
                 FindRecursive(node);
+            }
+        }
+
+        private void FindInNode(TreeNode node)
+        {
+            if (node.Text.ToLower().Contains(searchTreeTextBox.Text.ToLower()))
+            {
+                hitCount++;
+
+                if (hitCount == findIndex)
+                {
+                    node.BackColor = Color.Blue;
+                    node.ForeColor = Color.White;
+                    treeView.SelectedNode = node;
+                    node.EnsureVisible();
+                }
+                else
+                {
+                    node.BackColor = Color.Yellow;
+                }
             }
         }
 
@@ -176,6 +184,7 @@ namespace XmlVisualizer
 
             foreach (TreeNode node in nodes)
             {
+                ClearNode(node);
                 ClearRecursive(node);
             }
         }
@@ -184,10 +193,15 @@ namespace XmlVisualizer
         {
             foreach (TreeNode node in treeNode.Nodes)
             {
-                node.ForeColor = Color.Black;
-                node.BackColor = Color.White;
-                ClearRecursive(node);
+                ClearNode(node);
             }
+        }
+
+        private static void ClearNode(TreeNode node)
+        {
+            node.ForeColor = Color.Black;
+            node.BackColor = Color.White;
+            ClearRecursive(node);
         }
 
         private void SearchTreeNext()

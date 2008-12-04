@@ -33,19 +33,18 @@ namespace XmlVisualizer
         private string appliedXsdFile;
         private string appliedXsltFile;
         private string debugString;
-        private static bool mainFormLoaded;
-        private static bool errorInXslt;
-        private static bool errorInXml;
-        private static bool editorEnabled;
-        private static bool treeviewEnabled;
-        private static bool newFile;
-        private static bool doNotDeleteFile;
-        private static bool mainFormPropertiesSet;
-        private static bool standAlone;
+        private bool mainFormLoaded;
+        private bool errorInXslt;
+        private bool errorInXml;
+        private bool editorEnabled;
+        private bool treeviewEnabled;
+        private bool newFile;
+        private bool doNotDeleteFile;
+        private bool mainFormPropertiesSet;
+        private bool standAlone;
 
         public MainForm()
         {
-            ClearMainForm();
             CheckForCompatibleDpi();
             InitializeComponent();
             SetXPathDefaultType();
@@ -58,34 +57,6 @@ namespace XmlVisualizer
             ReadInjectState();
             InitializeTreeViewEvents();
             InitializeEditorEvents();
-        }
-
-        private void ClearMainForm()
-        {
-            ActiveState = States.InputFile;
-            StateBeforeNewFile = States.InputFile;
-            StateBeforeXsltError = States.InputFile;
-            previousXPathQuery = null;
-            previousXsltFile = null;
-            previousXmlFile = null;
-            previousXsdFile = null;
-            previousFileFromXPath = null;
-            previousFileFromXslt = null;
-            appliedXsdFile = null;
-            appliedXsltFile = null;
-            debugString = null;
-            previousXPathQuery = null;
-            mainFormLoaded = false;
-            errorInXslt = false;
-            errorInXml = false;
-            editorEnabled = false;
-            treeviewEnabled = false;
-            newFile = false;
-            doNotDeleteFile = false;
-            mainFormPropertiesSet = false;
-            standAlone = false;
-            inject = false;
-            originalXmlFile = null;
         }
 
         public void SetStandAlone()
@@ -434,7 +405,7 @@ namespace XmlVisualizer
             XPath
         };
 
-        private static void SetMainFormProperties(Form mainForm)
+        private void SetMainFormProperties(Form mainForm)
         {
             string MainFormWidth = Util.ReadFromRegistry("MainFormWidth");
             string MainFormHeight = Util.ReadFromRegistry("MainFormHeight");
