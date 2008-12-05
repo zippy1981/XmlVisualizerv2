@@ -940,9 +940,12 @@ namespace XmlVisualizer
         {
             if (ActiveForm != null && mainFormPropertiesSet)
             {
-                Util.SaveToRegistry("MainFormWidth", (ActiveForm.Width).ToString());
-                Util.SaveToRegistry("MainFormHeight", (ActiveForm.Height).ToString());
-                SaveMainFormLocation();
+                if (WindowState == FormWindowState.Normal)
+                {
+                    Util.SaveToRegistry("MainFormWidth", (ActiveForm.Width).ToString());
+                    Util.SaveToRegistry("MainFormHeight", (ActiveForm.Height).ToString());
+                    SaveMainFormLocation();
+                }
 
                 inputFileComboBox.Select(0, 0);
                 xPathComboBox.Select(0, 0);
