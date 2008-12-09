@@ -406,6 +406,14 @@ namespace XmlVisualizer
 
                         originalXmlFile = inputFileComboBox.Text;
                         doNotDeleteFile = true;
+
+                        if (newFile)
+                        {
+                            if (debugString == "")
+                            {
+                                debugString = editorControlsUserControl.GetText();
+                            }
+                        }
                     }
 
                     SaveEditorContent(fileName, applyAfterSave);
