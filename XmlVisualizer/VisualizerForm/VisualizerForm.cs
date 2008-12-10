@@ -65,7 +65,6 @@ namespace XmlVisualizer
         private void visualizerUserControl_CloseEvent()
         {
             modifiedXml = visualizerUserControl.GetModifiedXml();
-            //visualizerUserControl.Cleanup();
             Dispose(true);
         }
 
