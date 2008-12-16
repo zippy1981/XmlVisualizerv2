@@ -47,7 +47,6 @@ namespace XmlVisualizer
         private bool doNotDeleteFile;
         private bool debugMode;
         private bool standAlone;
-        private bool exitOnClose;
 
         public VisualizerUserControl()
         {
@@ -93,11 +92,6 @@ namespace XmlVisualizer
             {
                 statusStrip.Visible = value;
             }
-        }
-
-        public void SetExitOnClose(bool value)
-        {
-            exitOnClose = value;
         }
 
         public void SetCloseButtonText(string text)
@@ -535,11 +529,6 @@ namespace XmlVisualizer
             if (!debugMode && !standAlone)
             {
                 ClearSession();
-            }
-
-            if (exitOnClose)
-            {
-                Dispose();
             }
         }
 
