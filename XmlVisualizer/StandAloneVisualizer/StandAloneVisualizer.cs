@@ -4,9 +4,8 @@
 
 using System;
 using System.Windows.Forms;
-using XmlVisualizer;
 
-namespace StandAloneVisualizer
+namespace XmlVisualizer
 {
     public static class StandAloneVisualizer
     {

@@ -19,7 +19,7 @@
     <ApplicationIcon>bug.ico</ApplicationIcon>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
-    <StartupObject>StandAloneVisualizer.StandAloneVisualizer</StartupObject>
+    <StartupObject>XmlVisualizer.StandAloneVisualizer</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>

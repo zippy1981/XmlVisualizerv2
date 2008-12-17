@@ -75,6 +75,7 @@ namespace XmlVisualizer
 
         private void VisualizerUserControl_OnDisposeEvent()
         {
+            webBrowser.Dispose();
             Cleanup();
         }
 
@@ -456,6 +457,9 @@ namespace XmlVisualizer
 
                     if (applyAfterSave)
                     {
+                        Util.SaveComboBoxItemToRegistry(inputFileComboBox.Text, "XmlFile", numberOfXmlFilesToSave);
+                        FillInputFileComboBox();
+
                         SetInputFileOptions();
                         DisableEditorControl(true);
                         Reload(inputFileComboBox.Text);
