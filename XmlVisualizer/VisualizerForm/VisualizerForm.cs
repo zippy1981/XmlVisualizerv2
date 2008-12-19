@@ -94,8 +94,11 @@ namespace XmlVisualizer
 
         private static void SaveMainFormLocation()
         {
-            Util.SaveToRegistry("MainFormLocationX", (ActiveForm.Location.X).ToString());
-            Util.SaveToRegistry("MainFormLocationY", (ActiveForm.Location.Y).ToString());
+            if (ActiveForm != null)
+            {
+                Util.SaveToRegistry("MainFormLocationX", (ActiveForm.Location.X).ToString());
+                Util.SaveToRegistry("MainFormLocationY", (ActiveForm.Location.Y).ToString());
+            }
         }
 
         private void SetMainFormProperties(Form mainForm)
