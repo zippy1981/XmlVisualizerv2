@@ -3,7 +3,6 @@
 // http://www.codeplex.com/XmlVisualizer
 
 using System;
-using System.Threading;
 using System.Windows.Forms;
 using XmlVisualizer;
 
@@ -13,43 +12,25 @@ namespace TestStandAloneVisualizer
     {
         public Form1()
         {
+            Visualizer.OnDisposeEvent += Visualizer_OnDisposeEvent;
             InitializeComponent();
         }
 
         private void modelessButton_Click(object sender, EventArgs e)
         {
-            ThreadStart threadDelegate = ShowModeless;
-            Thread thread = new Thread(threadDelegate);
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            Visualizer.ShowModeless_LoadXmlFromString("<xml>test</xml>");
+            //Visualizer.ShowModeless_LoadXmlFromFile("c:\\temp\\test.xml");
         }
 
         private void modalButton_Click(object sender, EventArgs e)
         {
-            ShowModal();
+            Visualizer.ShowModal_LoadXmlFromString("<xml>test</xml>");
+            //Visualizer.ShowModal_LoadXmlFromFile("c:\\temp\\test.xml");
         }
 
-        private static void ShowModeless()
+        private static void Visualizer_OnDisposeEvent(string modifiedXml)
         {
-            using (Visualizer visualizer = new Visualizer(false))
-            {
-                //visualizer.LoadXmlFromFile("c:\\temp\\test.xml");
-                visualizer.LoadXmlFromString("<xml>test</xml>");
-                //visualizer.LoadXmlFromString("");
-                //visualizer.LoadXmlFromFile(null);
-                //visualizer.LoadXmlFromFile("");
-
-                visualizer.Show();
-                //MessageBox.Show(visualizer.GetModifiedXml());
-            }
-        }
-
-        private static void ShowModal()
-        {
-            using (Visualizer visualizer = new Visualizer(false))
-            {
-                visualizer.ShowDialog();
-            }
+            MessageBox.Show(string.Format("Returned from Xml Visualizer v.2:\r\n{0}", modifiedXml));
         }
     }
 }

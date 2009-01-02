@@ -11,22 +11,13 @@ namespace XmlVisualizer
     {
         protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
-            using (Visualizer visualizer = new Visualizer(true))
+            string modifiedXml = Visualizer.ShowModal_LoadXmlFromString(objectProvider.GetObject().ToString(), objectProvider.IsObjectReplaceable, true);
+
+            if (Visualizer.ReplaceObject())
             {
-                if (visualizer.IsDisposed())
-                {
-                    return;
-                }
-
-                visualizer.LoadXmlFromString(objectProvider.GetObject().ToString(), objectProvider.IsObjectReplaceable);
-                visualizer.ShowDialog();
-
-                if (visualizer.ReplaceObject())
-                {
-                    StringReader sr = new StringReader(visualizer.GetModifiedXml());
-                    objectProvider.ReplaceObject(sr.ReadToEnd());
-                    sr.Close();
-                }
+                StringReader sr = new StringReader(modifiedXml);
+                objectProvider.ReplaceObject(sr.ReadToEnd());
+                sr.Close();
             }
         }
     }

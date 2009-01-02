@@ -12,23 +12,22 @@ namespace XmlVisualizer
         [STAThread]
         static void Main()
         {
-            using (Visualizer visualizer = new Visualizer(false))
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length == 2)
             {
-                string[] args = Environment.GetCommandLineArgs();
-
-                if (args.Length == 2)
+                try
                 {
-                    try
-                    {
-                        visualizer.LoadXmlFromFile(args[1]);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Xml Visualizer v.2", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    Visualizer.ShowModeless_LoadXmlFromFile(args[1]);
                 }
-
-                visualizer.Show();
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Xml Visualizer v.2", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                Visualizer.ShowModeless_LoadXmlFromString("");
             }
         }
     }
