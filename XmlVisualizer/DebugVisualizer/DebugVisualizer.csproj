@@ -64,9 +64,9 @@ if not exist "..\..\runtime" mkdir "..\..\runtime"
 </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VisualizerForm\VisualizerForm.csproj">
+    <ProjectReference Include="..\Visualizer\Visualizer.csproj">
       <Project>{617C2C77-0738-44A4-B7BD-29637937D09F}</Project>
-      <Name>VisualizerForm</Name>
+      <Name>Visualizer</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
