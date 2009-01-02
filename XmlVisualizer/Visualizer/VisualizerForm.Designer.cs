@@ -46,7 +46,7 @@ namespace XmlVisualizer
             this.visualizerUserControl.Size = new System.Drawing.Size(592, 373);
             this.visualizerUserControl.TabIndex = 0;
             // 
-            // MainForm
+            // VisualizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -54,11 +54,13 @@ namespace XmlVisualizer
             this.Controls.Add(this.visualizerUserControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
-            this.Name = "MainForm";
+            this.Name = "VisualizerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Activated += new System.EventHandler(this.VisualizerForm_Activated);
             this.Move += new System.EventHandler(this.MainForm_Move);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -68,6 +68,11 @@ namespace XmlVisualizer
             SetNoInputFileOptions();
         }
 
+        public void SetWebBrowserFocus()
+        {
+            webBrowser.Focus();
+        }
+
         private void InitializeVisualizerEvents()
         {
             OnDisposeEvent += VisualizerUserControl_OnDisposeEvent;

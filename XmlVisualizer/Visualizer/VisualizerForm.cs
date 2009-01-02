@@ -141,5 +141,10 @@ namespace XmlVisualizer
             mainForm.Text = Util.GetTitle();
             mainFormPropertiesSet = true;
         }
+
+        private void VisualizerForm_Activated(object sender, EventArgs e)
+        {
+            visualizerUserControl.SetWebBrowserFocus();
+        }
     }
 }
