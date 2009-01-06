@@ -11,7 +11,8 @@ namespace XmlVisualizer
     public class Visualizer : IDisposable
     {
         public delegate void OnDisposeEventHandler(string modifiedXml);
-        public static event OnDisposeEventHandler OnDisposeEvent;
+        public event OnDisposeEventHandler OnDisposeEvent;
+        public static event OnDisposeEventHandler OnDisposeEventStatic;
 
         private static bool replaceObject;
         private VisualizerForm visualizerForm;
@@ -19,6 +20,7 @@ namespace XmlVisualizer
         /// <summary>
         /// Constructor for Xml Visualizer v.2.
         /// </summary>
+        /// <param name="debugMode">Indicates if the visualizer should be used standalone or in debug mode.</param>
         private Visualizer(bool debugMode)
         {
             replaceObject = true;
@@ -28,6 +30,15 @@ namespace XmlVisualizer
             {
                 visualizerForm.SetDebugMode();
             }
+        }
+
+        /// <summary>
+        /// Constructor for Xml Visualizer v.2.
+        /// </summary>
+        public Visualizer()
+        {
+            replaceObject = true;
+            visualizerForm = new VisualizerForm();
         }
 
         /// <summary>
@@ -51,13 +62,18 @@ namespace XmlVisualizer
             {
                 OnDisposeEvent(modifiedXml);
             }
+
+            if (OnDisposeEventStatic != null)
+            {
+                OnDisposeEventStatic(modifiedXml);
+            }
         }
 
         /// <summary>
         /// Loads Xml string into Xml Visualizer v.2.
         /// </summary>
         /// <param name="xml">The Xml string to load.</param>
-        private void LoadXmlFromString(string xml)
+        public void LoadXmlFromString(string xml)
         {
             if (!String.IsNullOrEmpty(xml))
             {
@@ -83,7 +99,7 @@ namespace XmlVisualizer
         /// Loads Xml file into Xml Visualizer v.2.
         /// </summary>
         /// <param name="fileName">The name of the file to load.</param>
-        private void LoadXmlFromFile(string fileName)
+        public void LoadXmlFromFile(string fileName)
         {
             if (!String.IsNullOrEmpty(fileName))
             {
@@ -94,16 +110,18 @@ namespace XmlVisualizer
         /// <summary>
         /// Show the Xml Visualizer v.2 main window as a modal dialog.
         /// </summary>
-        private void ShowDialog()
+        public string ShowDialog()
         {
             visualizerForm.ShowDialog();
             PostShow();
+
+            return visualizerForm.GetModifiedXml();
         }
 
         /// <summary>
         /// Show the Xml Visualizer v.2 main window as a modeless dialog.
         /// </summary>
-        private void Show()
+        public void Show()
         {
             Application.Run(visualizerForm);
             PostShow();
@@ -120,7 +138,7 @@ namespace XmlVisualizer
         /// <summary>
         /// Returns modified Xml.
         /// </summary>
-        private string GetModifiedXml()
+        public string GetModifiedXml()
         {
             return visualizerForm.GetModifiedXml();
         }
