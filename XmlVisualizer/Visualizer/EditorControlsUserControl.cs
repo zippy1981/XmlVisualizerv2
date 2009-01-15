@@ -153,6 +153,7 @@ namespace XmlVisualizer
                     SaveAsEvent(saveAsFileDialog.FileName, applyAfterSave);
                 }
 
+                editorUserControl.ChangesInEditor = false;
                 saved = true;
             }
             else

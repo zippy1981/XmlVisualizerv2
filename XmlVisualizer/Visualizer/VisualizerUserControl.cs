@@ -1041,6 +1041,7 @@ namespace XmlVisualizer
                 editorControlsUserControl.useSaveAsOnSave = false;
             }
 
+            toClipboardButton.Enabled = true;
             newXmlFileButton.Enabled = false;
             newXsdFileButton.Enabled = false;
             inputFileComboBox.Enabled = false;
@@ -1155,6 +1156,10 @@ namespace XmlVisualizer
                 applyXsdButton.Enabled = true;
                 newXsdFileButton.Enabled = true;
                 selectXsdFileButton.Enabled = true;
+            }
+            else
+            {
+                toClipboardButton.Enabled = false;
             }
 
             applyXmlButton.Enabled = true;
