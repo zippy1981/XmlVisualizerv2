@@ -41,6 +41,7 @@ namespace XmlVisualizer
                 dom.Load(xml);
 
                 treeView.Nodes.Clear();
+                treeView.BeginUpdate(); // Thanks to Pietro Loiudice
 
                 if (dom.DocumentElement != null)
                 {
@@ -51,6 +52,7 @@ namespace XmlVisualizer
                 treeView.ExpandAll();
 
                 treeView.Nodes[0].EnsureVisible();
+                treeView.EndUpdate(); // Thanks to Pietro Loiudice
             }
             catch (Exception e)
             {

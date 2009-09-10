@@ -18,8 +18,8 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("9f0bcefc-513a-449c-9c62-dce8ba1a8930")]
 
-[assembly: AssemblyVersion("6.1.0.0")]
-[assembly: AssemblyFileVersion("6.1.0.0")]
+[assembly: AssemblyVersion("6.2.0.0")]
+[assembly: AssemblyFileVersion("6.2.0.0")]
 
 [assembly: System.Diagnostics.DebuggerVisualizer(
     typeof(XmlVisualizer.DebugVisualizer),
