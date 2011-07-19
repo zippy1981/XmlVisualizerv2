@@ -554,13 +554,7 @@ namespace XmlVisualizer
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            using (AboutForm af = new AboutForm())
-            {
-                string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                af.ProgramVersion = version.Substring(0, version.Length - 4);
-                af.Title = Util.GetTitle();
-                af.ShowDialog();
-            }
+            AboutForm.ShowModal();
         }
 
         private void ReloadWebBrowser(string url)

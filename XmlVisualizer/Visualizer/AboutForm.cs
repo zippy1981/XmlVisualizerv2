@@ -7,12 +7,23 @@ using System.Windows.Forms;
 
 namespace XmlVisualizer
 {
-    internal partial class AboutForm : Form
+    public partial class AboutForm : Form
     {
-        public AboutForm()
+        private AboutForm()
         {
             InitializeComponent();
             SetAboutFormProperties();
+        }
+
+        public static void ShowModal()
+        {
+            using (AboutForm af = new AboutForm())
+            {
+                string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                af.ProgramVersion = version.Substring(0, version.Length - 4);
+                af.Title = Util.GetTitle();
+                af.ShowDialog();
+            }
         }
 
         private void SetAboutFormProperties()
