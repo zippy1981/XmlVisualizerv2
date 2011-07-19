@@ -1,0 +1,1 @@
+This is a port of [XmlVisualizer.v2](http://xmlvisualizer.codeplex.com/) by  Lars Hove Christiansen that adds [inspectors](http://www.fiddler2.com/fiddler/dev/inspectors.asp) for [Fiddle2](http://www.fiddler2.com).
