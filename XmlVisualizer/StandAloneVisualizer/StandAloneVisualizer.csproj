@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,9 +17,12 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <ApplicationIcon>bug.ico</ApplicationIcon>
-    <TargetFrameworkSubset>
-    </TargetFrameworkSubset>
     <StartupObject>XmlVisualizer.StandAloneVisualizer</StartupObject>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,7 +35,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -70,7 +72,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -111,7 +113,7 @@
   <PropertyGroup>
     <PostBuildEvent>cd $(TargetDir)
 if not exist "..\..\runtime" mkdir "..\..\runtime"
-..\..\..\ILMerge.exe /target:winexe StandAloneVisualizer.exe VisualizerForm.dll VisualizerControl.dll ICSharpCode.TextEditor.dll /out:..\..\runtime\XmlVisualizer.exe
+REM ..\..\..\ILMerge.exe /target:winexe StandAloneVisualizer.exe VisualizerForm.dll VisualizerControl.dll ICSharpCode.TextEditor.dll /out:..\..\runtime\XmlVisualizer.exe
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

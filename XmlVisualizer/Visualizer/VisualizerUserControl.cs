@@ -1457,12 +1457,17 @@ namespace XmlVisualizer
 
         private void newXmlFileButton_Click(object sender, EventArgs e)
         {
+            NewFile();
+            EnableEditorControl();
+        }
+
+        public void NewFile()
+        {
             editorControlsUserControl.SetText(GetNewXml());
             inputFileComboBox.Text = "";
             StateBeforeNewFile = ActiveState;
             SetActive(States.InputFile);
             newFile = true;
-            EnableEditorControl();
         }
 
         private void inputFileComboBox_KeyDown(object sender, KeyEventArgs e)

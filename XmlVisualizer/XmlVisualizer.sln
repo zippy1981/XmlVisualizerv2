@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDebugVisualizer", "TestDebugVisualizer\TestDebugVisualizer.csproj", "{2ED9DBBF-9874-429E-AC02-BFCFD6C4349D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugVisualizer", "DebugVisualizer\DebugVisualizer.csproj", "{F9D2D3A4-46BB-480F-B131-ED69F1134B8B}"
@@ -9,6 +9,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStandAloneVisualizer", "TestStandAloneVisualizer\TestStandAloneVisualizer.csproj", "{96C6A64D-A7FE-43DA-9D8F-1EE8BA6A579B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{617C2C77-0738-44A4-B7BD-29637937D09F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiddlerVisualizer", "FiddlerVisualizer\FiddlerVisualizer.csproj", "{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -57,6 +59,10 @@ Global
 		{617C2C77-0738-44A4-B7BD-29637937D09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{617C2C77-0738-44A4-B7BD-29637937D09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{617C2C77-0738-44A4-B7BD-29637937D09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
