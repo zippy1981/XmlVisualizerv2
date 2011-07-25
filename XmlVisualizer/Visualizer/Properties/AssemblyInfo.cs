@@ -16,7 +16,9 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
+#if !NETMODULE
 [assembly: Guid("e25dd143-aeea-4bf3-8e0c-1876b1d600b5")]
+#endif
 
 [assembly: AssemblyVersion("6.3.0.0")]
 [assembly: AssemblyFileVersion("6.3.0.0")]
