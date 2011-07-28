@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{617C2C77-0738-44A4-B7BD-29637937D09F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiddlerVisualizer", "FiddlerVisualizer\FiddlerVisualizer.csproj", "{461E4A4E-0DF5-4EF9-8B64-FCE23F2A682F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{617C2C77-0738-44A4-B7BD-29637937D09F} = {617C2C77-0738-44A4-B7BD-29637937D09F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
